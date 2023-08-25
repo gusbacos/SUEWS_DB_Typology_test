@@ -6,29 +6,68 @@ import matplotlib.pyplot as plt
 from datetime import date, datetime
 import datetime
 
-def night(ax, df_, s, e, s_alpha=False):
+# def night(ax, df_, s, e, s_alpha=False):
+#     idx =0
+#     f_date = (date(int(s[0:4]),int(s[5:7]),int(s[7:10])))
+#     l_date = (date(int(e[0:4]),int(e[5:7]),int(e[7:10])))
+#     delta = (l_date - f_date)+ datetime.timedelta(days=2)
+#     for i in range(delta.days):    
+#         time = datetime.date(int(s[0:4]),int(s[5:7]),int(s[7:10])) + datetime.timedelta(days=idx)
+#         time2 = time -datetime.timedelta(days=1)
+#         a=str(time)[:10]
+#         r=df_.loc[a:a]
+#         up=r[r['Kdown']>0].index.tolist()
+        
+#         b=str(time2)[:10]
+#         d=df_.loc[b:b]
+#         down=d[d['Kdown']>0].index.tolist()
+
+#         if s_alpha:
+#             ax.axvspan(down[-1],up[0],alpha=s_alpha,color='grey')
+#         else:
+#             ax.axvspan(down[-1],up[0],alpha=0.07,color='grey')
+        
+#         idx=idx+1
+
+def night(ax, df_in, s, e, s_alpha=False):
     idx =0
     f_date = (date(int(s[0:4]),int(s[5:7]),int(s[7:10])))
     l_date = (date(int(e[0:4]),int(e[5:7]),int(e[7:10])))
     delta = (l_date - f_date)+ datetime.timedelta(days=2)
+    
+    try:    
+        df_in.loc['Kdown']
+        var = 'Kdown'
+    except:
+        var = 'kdown'
+
     for i in range(delta.days):    
-        time = datetime.date(int(s[0:4]),int(s[5:7]),int(s[7:10])) + datetime.timedelta(days=idx)
-        time2 = time -datetime.timedelta(days=1)
-        a=str(time)[:10]
-        r=df_.loc[a:a]
-        up=r[r['Kdown']>0].index.tolist()
+        time_plus = datetime.date(int(s[0:4]),int(s[5:7]),int(s[7:10])) + datetime.timedelta(days=idx)
+        time_now = time_plus -datetime.timedelta(days=1)
+        day_plus=str(time_plus)[:10]
+        forc_plus=df_in.loc[day_plus]
+        up=forc_plus[forc_plus[var]>0].index.tolist()
         
-        b=str(time2)[:10]
-        d=df_.loc[b:b]
-        down=d[d['Kdown']>0].index.tolist()
+        day_now=str(time_now)[:10]
+        forc_now=df_in.loc[day_now]
+        down=forc_now[forc_now[var]>0].index.tolist()
 
         if s_alpha:
-            ax.axvspan(down[-1],up[0],alpha=s_alpha,color='grey')
+            try:
+                ax.axvspan(down[-1],up[0],alpha=s_alpha,color='grey')
+            except:
+                ax.axvspan(down[-1], df_in.iloc[-1].name.strftime('%Y-%m-%d %H:%m'), alpha=s_alpha,color='grey')
+                
         else:
-            ax.axvspan(down[-1],up[0],alpha=0.07,color='grey')
+            try:
+                ax.axvspan(down[0],up[-1],alpha=0.07,color='grey')
+            except:
+                ax.axvspan(down[-1], df_in.iloc[-1].name.strftime('%Y-%m-%d %H:%m'),alpha= 0.07 ,color='grey')
         
         idx=idx+1
     
+
+
 # Old Unused
 def night_2(i):
     

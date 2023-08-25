@@ -42,7 +42,7 @@ cp_roof(3,:)  = 2e6, 3e6, 2e6, 2e6, 2e6
 sfr_wall  = .3,  .3,  .4 !(sum should be 1)
 tin_wall  = 5,   5,   5
 alb_wall  = .5,  .5,  .5
-emis_wall = .95, .95, .95
+emis_wall = .9, .9, .9
 
 state_wall        = .0,  .0,  .0
 statelimit_wall   = 5,   5,   5
