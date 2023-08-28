@@ -329,3 +329,20 @@ FileNotFoundError: [Errno 2] No such file or directory: 'C:\\GitHub\\SUEWS_DB_Ty
 2023-08-25 14:16:21,818 - SuPy - INFO - Execution time: 179.1 s
 2023-08-25 14:16:21,820 - SuPy - INFO - ====================
 
+2023-08-25 14:56:19,984 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:21,223 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:22,450 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:23,572 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:24,717 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:25,920 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:27,046 - SuPy - INFO - All cache cleared.
+2023-08-25 14:56:42,114 - SuPy - INFO - ====================
+2023-08-25 14:56:42,115 - SuPy - INFO - Simulation period:
+2023-08-25 14:56:42,116 - SuPy - INFO -   Start: 2012-07-23 00:05:00
+2023-08-25 14:56:42,116 - SuPy - INFO -   End: 2012-07-27 23:55:00
+2023-08-25 14:56:42,117 - SuPy - INFO - 
+2023-08-25 14:56:42,118 - SuPy - INFO - No. of grids: 1
+2023-08-25 14:56:42,119 - SuPy - INFO - SuPy is running in serial mode
+2023-08-25 14:59:11,445 - SuPy - INFO - Execution time: 149.3 s
+2023-08-25 14:59:11,446 - SuPy - INFO - ====================
+
