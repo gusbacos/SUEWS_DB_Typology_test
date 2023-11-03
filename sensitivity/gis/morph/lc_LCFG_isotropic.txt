@@ -1,0 +1,2 @@
+ID Paved Buildings EvergreenTrees DecidiousTrees Grass Baresoil Water
+  1 0.895 0.099 0.000 0.006 0.000 0.000 0.000

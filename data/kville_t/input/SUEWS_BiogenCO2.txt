@@ -1,0 +1,5 @@
+1	2	3	4	5	6	7	8	9
+Code	alpha	beta	theta	alpha_enh	beta_enh	resp_a	resp_b	min_respi
+3010.0	0.031	17.793	0.723	-999.0	-999.0	3.229	0.0329	0.6
+-9.0								
+-9.0								

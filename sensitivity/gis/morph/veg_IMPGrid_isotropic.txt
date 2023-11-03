@@ -1,0 +1,2 @@
+ id  pai   fai   zH  zHmax   zHstd  zd  z0  wai 
+  1 0.006 0.007 4.950 8.000 1.077 3.465 0.495 0.020

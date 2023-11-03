@@ -1,0 +1,36 @@
+&runcontrol
+    cbluse = 0
+    snowuse = 0
+    netradiationmethod = 3
+    emissionsmethod = 2
+    basetmethod = 1
+    storageheatmethod = 4
+    ohmincqf = 0
+    stabilitymethod = 3
+    roughlenheatmethod = 2
+    roughlenmommethod = 1
+    smdmethod = 0
+    waterusemethod = 0
+    filecode = 'Kc'
+    fileinputpath = 'C:\\GitHub\\SUEWS_DB_Typology_test\\data\\sample_data2\\Input/',
+    fileoutputpath = 'C:\\Users\\xbacos\\OneDrive - University of Gothenburg\\Artikel_4\\temp\\qgis_Suews_ESTM/',
+    multiplemetfiles = 0
+    multipleinitfiles = 0
+    multipleestmfiles = 0
+    multiplelayoutfiles = 1
+    keeptstepfilesin = 0
+    keeptstepfilesout = 0
+    writeoutoption = 2
+    resolutionfilesout = 3600
+    tstep = 300
+    resolutionfilesin = 3600
+    resolutionfilesinestm = 3600
+    disaggmethod = 1
+    raindisaggmethod = 100
+    disaggmethodestm = 1
+    suppresswarnings = 1
+    kdownzen = 0
+    diagnose = 0
+    diagmethod = 2
+/
+
