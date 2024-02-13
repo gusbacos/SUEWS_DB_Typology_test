@@ -1,0 +1,357 @@
+2023-08-30 01:02:28,223 - SuPy - INFO - Execution time: 7878.2 s
+2023-08-30 01:02:28,233 - SuPy - INFO - ====================
+
+2023-08-30 01:02:28,235 - SuPy - INFO - ====================
+2023-08-30 01:02:28,236 - SuPy - INFO - Simulation period:
+2023-08-30 01:02:28,238 - SuPy - INFO -   Start: 2011-01-01 00:05:00
+2023-08-30 01:02:28,239 - SuPy - INFO -   End: 2013-01-01 00:00:00
+2023-08-30 01:02:28,240 - SuPy - INFO - 
+2023-08-30 01:02:28,242 - SuPy - INFO - No. of grids: 1
+2023-08-30 01:02:28,243 - SuPy - INFO - SuPy is running in serial mode
+2023-08-30 03:08:19,222 - SuPy - INFO - Execution time: 7551.0 s
+2023-08-30 03:08:19,224 - SuPy - INFO - ====================
+
+2023-08-30 03:08:19,225 - SuPy - INFO - ====================
+2023-08-30 03:08:19,227 - SuPy - INFO - Simulation period:
+2023-08-30 03:08:19,227 - SuPy - INFO -   Start: 2011-01-01 00:05:00
+2023-08-30 03:08:19,228 - SuPy - INFO -   End: 2013-01-01 00:00:00
+2023-08-30 03:08:19,229 - SuPy - INFO - 
+2023-08-30 03:08:19,230 - SuPy - INFO - No. of grids: 1
+2023-08-30 03:08:19,231 - SuPy - INFO - SuPy is running in serial mode
+2023-08-30 05:15:20,597 - SuPy - INFO - Execution time: 7621.4 s
+2023-08-30 05:15:20,598 - SuPy - INFO - ====================
+
+2023-08-31 15:51:52,964 - SuPy - INFO - All cache cleared.
+2023-08-31 15:51:53,105 - SuPy - ERROR - error [Errno 2] No such file or directory: 'C:\\GitHub\\SUEWS_DB_Typology_test\\data\\kville\\input\\SUEWS_WithinGridWaterDist.txt' in reading C:\GitHub\SUEWS_DB_Typology_test\data\kville\input\SUEWS_WithinGridWaterDist.txt!
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 303, in load_SUEWS_table
+    rawdata = pd.read_csv(
+              ^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\util\_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\util\_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\io\parsers\readers.py", line 950, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\io\parsers\readers.py", line 605, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\io\parsers\readers.py", line 1442, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\io\parsers\readers.py", line 1735, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\io\common.py", line 856, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\GitHub\\SUEWS_DB_Typology_test\\data\\kville\\input\\SUEWS_WithinGridWaterDist.txt'
+2023-08-31 15:52:30,361 - SuPy - INFO - All cache cleared.
+2023-08-31 15:52:31,416 - SuPy - INFO - All cache cleared.
+2023-08-31 15:53:52,439 - SuPy - INFO - All cache cleared.
+2023-08-31 15:54:30,925 - SuPy - INFO - All cache cleared.
+2023-08-31 15:58:00,477 - SuPy - INFO - ====================
+2023-08-31 15:58:00,478 - SuPy - INFO - Simulation period:
+2023-08-31 15:58:00,479 - SuPy - INFO -   Start: 2018-05-28 00:00:00
+2023-08-31 15:58:00,479 - SuPy - INFO -   End: 2018-06-05 23:55:00
+2023-08-31 15:58:00,480 - SuPy - INFO - 
+2023-08-31 15:58:00,480 - SuPy - INFO - No. of grids: 15
+2023-08-31 15:58:00,481 - SuPy - INFO - SuPy is running in serial mode
+2023-08-31 15:58:19,576 - SuPy - INFO - ====================
+2023-08-31 15:58:19,577 - SuPy - INFO - Simulation period:
+2023-08-31 15:58:19,578 - SuPy - INFO -   Start: 2018-05-28 00:00:00
+2023-08-31 15:58:19,579 - SuPy - INFO -   End: 2018-06-05 23:55:00
+2023-08-31 15:58:19,580 - SuPy - INFO - 
+2023-08-31 15:58:19,580 - SuPy - INFO - No. of grids: 15
+2023-08-31 15:58:19,581 - SuPy - INFO - SuPy is running in serial mode
+2023-08-31 15:58:28,036 - SuPy - INFO - All cache cleared.
+2023-08-31 15:58:41,529 - SuPy - INFO - ====================
+2023-08-31 15:58:41,530 - SuPy - INFO - Simulation period:
+2023-08-31 15:58:41,531 - SuPy - INFO -   Start: 2018-05-28 00:00:00
+2023-08-31 15:58:41,531 - SuPy - INFO -   End: 2018-06-05 23:55:00
+2023-08-31 15:58:41,533 - SuPy - INFO - 
+2023-08-31 15:58:41,533 - SuPy - INFO - No. of grids: 15
+2023-08-31 15:58:41,535 - SuPy - INFO - SuPy is running in serial mode
+2023-10-06 13:53:10,554 - SuPy - INFO - All cache cleared.
+2023-10-06 13:53:11,427 - SuPy - ERROR - Entries missing from SUEWS_OHMCoefficients.txt
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 923, in build_code_df
+    df_code = df_code0.loc[list_code, list_keys]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1067, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1247, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 941, in _getitem_lowerdim
+    return self._getitem_nested_tuple(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1047, in _getitem_nested_tuple
+    obj = getattr(obj, self.name)._getitem_axis(key, axis=axis)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1301, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1239, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1432, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6070, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6130, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([5016], dtype='int64', name='Code')] are in the [index]"
+2023-10-06 13:53:11,441 - SuPy - ERROR - missing code:
+ [5016]
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 923, in build_code_df
+    df_code = df_code0.loc[list_code, list_keys]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1067, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1247, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 941, in _getitem_lowerdim
+    return self._getitem_nested_tuple(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1047, in _getitem_nested_tuple
+    obj = getattr(obj, self.name)._getitem_axis(key, axis=axis)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1301, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1239, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1432, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6070, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6130, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([5016], dtype='int64', name='Code')] are in the [index]"
+2023-10-06 13:53:11,447 - SuPy - ERROR - `df_code0` has been dumped into C:\GitHub\SUEWS_DB_Typology_test\code\df_code0.pkl for debugging!
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 923, in build_code_df
+    df_code = df_code0.loc[list_code, list_keys]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1067, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1247, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 941, in _getitem_lowerdim
+    return self._getitem_nested_tuple(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1047, in _getitem_nested_tuple
+    obj = getattr(obj, self.name)._getitem_axis(key, axis=axis)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1301, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1239, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1432, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6070, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6130, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([5016], dtype='int64', name='Code')] are in the [index]"
+2023-10-06 13:53:34,919 - SuPy - INFO - All cache cleared.
+2023-10-06 13:53:35,215 - SuPy - ERROR - Entries missing from SUEWS_OHMCoefficients.txt
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 923, in build_code_df
+    df_code = df_code0.loc[list_code, list_keys]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1067, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1247, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 941, in _getitem_lowerdim
+    return self._getitem_nested_tuple(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1047, in _getitem_nested_tuple
+    obj = getattr(obj, self.name)._getitem_axis(key, axis=axis)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1301, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1239, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1432, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6070, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6130, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([5016], dtype='int64', name='Code')] are in the [index]"
+2023-10-06 13:53:35,217 - SuPy - ERROR - missing code:
+ [5016]
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 923, in build_code_df
+    df_code = df_code0.loc[list_code, list_keys]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1067, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1247, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 941, in _getitem_lowerdim
+    return self._getitem_nested_tuple(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1047, in _getitem_nested_tuple
+    obj = getattr(obj, self.name)._getitem_axis(key, axis=axis)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1301, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1239, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1432, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6070, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6130, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([5016], dtype='int64', name='Code')] are in the [index]"
+2023-10-06 13:53:35,221 - SuPy - ERROR - `df_code0` has been dumped into C:\GitHub\SUEWS_DB_Typology_test\code\df_code0.pkl for debugging!
+Traceback (most recent call last):
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 923, in build_code_df
+    df_code = df_code0.loc[list_code, list_keys]
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1067, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1247, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 941, in _getitem_lowerdim
+    return self._getitem_nested_tuple(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1047, in _getitem_nested_tuple
+    obj = getattr(obj, self.name)._getitem_axis(key, axis=axis)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1301, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1239, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexing.py", line 1432, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6070, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "c:\Users\xbacos\Miniconda3\envs\supy_env\Lib\site-packages\pandas\core\indexes\base.py", line 6130, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: "None of [Int64Index([5016], dtype='int64', name='Code')] are in the [index]"
+2023-10-06 13:54:04,842 - SuPy - INFO - All cache cleared.
+2023-10-06 13:54:18,418 - SuPy - INFO - All cache cleared.
+2023-10-06 13:54:34,469 - SuPy - INFO - ====================
+2023-10-06 13:54:34,470 - SuPy - INFO - Simulation period:
+2023-10-06 13:54:34,471 - SuPy - INFO -   Start: 2011-01-01 00:05:00
+2023-10-06 13:54:34,472 - SuPy - INFO -   End: 2013-01-01 00:00:00
+2023-10-06 13:54:34,473 - SuPy - INFO - 
+2023-10-06 13:54:34,474 - SuPy - INFO - No. of grids: 1
+2023-10-06 13:54:34,474 - SuPy - INFO - SuPy is running in serial mode
+2023-10-06 13:56:36,574 - SuPy - INFO - Execution time: 122.1 s
+2023-10-06 13:56:36,576 - SuPy - INFO - ====================
+
+2023-11-02 10:41:25,907 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:27,106 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:28,198 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:29,299 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:30,371 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:31,473 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:32,590 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:44,803 - SuPy - INFO - All cache cleared.
+2023-11-02 10:41:55,642 - SuPy - INFO - All cache cleared.
+2023-11-02 10:42:05,799 - SuPy - INFO - All cache cleared.
+2023-11-02 10:42:17,633 - SuPy - INFO - ====================
+2023-11-02 10:42:17,633 - SuPy - INFO - Simulation period:
+2023-11-02 10:42:17,635 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2023-11-02 10:42:17,635 - SuPy - INFO -   End: 2012-07-27 23:55:00
+2023-11-02 10:42:17,636 - SuPy - INFO - 
+2023-11-02 10:42:17,637 - SuPy - INFO - No. of grids: 1
+2023-11-02 10:42:17,638 - SuPy - INFO - SuPy is running in serial mode
+2023-11-02 10:56:37,861 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:40,087 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:42,034 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:43,883 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:45,694 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:47,790 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:49,793 - SuPy - INFO - All cache cleared.
+2023-11-02 10:56:51,741 - SuPy - INFO - All cache cleared.
+2023-11-02 10:57:10,409 - SuPy - INFO - ====================
+2023-11-02 10:57:10,410 - SuPy - INFO - Simulation period:
+2023-11-02 10:57:10,412 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2023-11-02 10:57:10,413 - SuPy - INFO -   End: 2012-07-27 23:55:00
+2023-11-02 10:57:10,415 - SuPy - INFO - 
+2023-11-02 10:57:10,416 - SuPy - INFO - No. of grids: 1
+2023-11-02 10:57:10,417 - SuPy - INFO - SuPy is running in serial mode
+2024-01-24 16:48:14,840 - SuPy - INFO - All cache cleared.
+2024-01-24 16:48:16,335 - SuPy - INFO - All cache cleared.
+2024-01-24 16:48:17,748 - SuPy - INFO - All cache cleared.
+2024-01-24 16:48:19,091 - SuPy - INFO - All cache cleared.
+2024-01-24 16:48:20,397 - SuPy - INFO - All cache cleared.
+2024-01-24 16:48:21,670 - SuPy - INFO - All cache cleared.
+2024-01-24 16:48:23,062 - SuPy - INFO - All cache cleared.
+2024-01-24 17:32:23,223 - SuPy - INFO - All cache cleared.
+2024-01-24 17:32:44,852 - SuPy - INFO - ====================
+2024-01-24 17:32:44,853 - SuPy - INFO - Simulation period:
+2024-01-24 17:32:44,855 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2024-01-24 17:32:44,855 - SuPy - INFO -   End: 2012-07-27 23:55:00
+2024-01-24 17:32:44,856 - SuPy - INFO - 
+2024-01-24 17:32:44,857 - SuPy - INFO - No. of grids: 1
+2024-01-24 17:32:44,858 - SuPy - INFO - SuPy is running in serial mode
+2024-01-24 17:37:46,789 - SuPy - INFO - Execution time: 301.9 s
+2024-01-24 17:37:46,790 - SuPy - INFO - ====================
+
+2024-02-06 15:48:46,210 - SuPy - INFO - All cache cleared.
+2024-02-06 15:48:47,764 - SuPy - INFO - All cache cleared.
+2024-02-06 15:48:49,192 - SuPy - INFO - All cache cleared.
+2024-02-06 15:48:50,609 - SuPy - INFO - All cache cleared.
+2024-02-06 15:48:51,968 - SuPy - INFO - All cache cleared.
+2024-02-06 15:48:53,273 - SuPy - INFO - All cache cleared.
+2024-02-06 15:48:54,663 - SuPy - INFO - All cache cleared.
+2024-02-06 15:52:13,595 - SuPy - INFO - All cache cleared.
+2024-02-06 15:54:03,583 - SuPy - INFO - ====================
+2024-02-06 15:54:03,583 - SuPy - INFO - Simulation period:
+2024-02-06 15:54:03,584 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2024-02-06 15:54:03,585 - SuPy - INFO -   End: 2012-07-27 23:55:00
+2024-02-06 15:54:03,586 - SuPy - INFO - 
+2024-02-06 15:54:03,586 - SuPy - INFO - No. of grids: 1
+2024-02-06 15:54:03,587 - SuPy - INFO - SuPy is running in serial mode
+2024-02-06 15:54:08,671 - SuPy - INFO - Execution time: 5.1 s
+2024-02-06 15:54:08,673 - SuPy - INFO - ====================
+
+2024-02-06 15:54:22,573 - SuPy - INFO - ====================
+2024-02-06 15:54:22,574 - SuPy - INFO - Simulation period:
+2024-02-06 15:54:22,575 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2024-02-06 15:54:22,576 - SuPy - INFO -   End: 2012-07-27 23:55:00
+2024-02-06 15:54:22,576 - SuPy - INFO - 
+2024-02-06 15:54:22,577 - SuPy - INFO - No. of grids: 1
+2024-02-06 15:54:22,579 - SuPy - INFO - SuPy is running in serial mode
+2024-02-06 15:59:34,466 - SuPy - INFO - Execution time: 311.9 s
+2024-02-06 15:59:34,468 - SuPy - INFO - ====================
+
