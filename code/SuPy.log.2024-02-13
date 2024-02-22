@@ -1,0 +1,21 @@
+2024-02-13 13:49:14,779 - SuPy - INFO - All cache cleared.
+2024-02-13 13:50:06,390 - SuPy - INFO - ====================
+2024-02-13 13:50:06,392 - SuPy - INFO - Simulation period:
+2024-02-13 13:50:06,394 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2024-02-13 13:50:06,396 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-13 13:50:06,398 - SuPy - INFO - 
+2024-02-13 13:50:06,400 - SuPy - INFO - No. of grids: 1
+2024-02-13 13:50:06,401 - SuPy - INFO - SuPy is running in serial mode
+2024-02-13 13:55:52,447 - SuPy - INFO - Execution time: 346.1 s
+2024-02-13 13:55:52,449 - SuPy - INFO - ====================
+
+2024-02-13 13:55:52,451 - SuPy - INFO - ====================
+2024-02-13 13:55:52,452 - SuPy - INFO - Simulation period:
+2024-02-13 13:55:52,454 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-13 13:55:52,456 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-13 13:55:52,457 - SuPy - INFO - 
+2024-02-13 13:55:52,458 - SuPy - INFO - No. of grids: 1
+2024-02-13 13:55:52,460 - SuPy - INFO - SuPy is running in serial mode
+2024-02-13 13:59:52,140 - SuPy - INFO - Execution time: 239.7 s
+2024-02-13 13:59:52,142 - SuPy - INFO - ====================
+
