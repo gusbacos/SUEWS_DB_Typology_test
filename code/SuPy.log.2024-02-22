@@ -1,0 +1,110 @@
+2024-02-22 10:50:48,937 - SuPy - INFO - All cache cleared.
+2024-02-22 10:50:51,035 - SuPy - INFO - All cache cleared.
+2024-02-22 10:50:52,783 - SuPy - INFO - All cache cleared.
+2024-02-22 10:50:54,669 - SuPy - INFO - All cache cleared.
+2024-02-22 10:50:56,539 - SuPy - INFO - All cache cleared.
+2024-02-22 10:50:58,358 - SuPy - INFO - All cache cleared.
+2024-02-22 10:51:00,273 - SuPy - INFO - All cache cleared.
+2024-02-22 10:51:02,102 - SuPy - INFO - All cache cleared.
+2024-02-22 10:51:44,095 - SuPy - INFO - All cache cleared.
+2024-02-22 10:51:57,213 - SuPy - INFO - ====================
+2024-02-22 10:51:57,214 - SuPy - INFO - Simulation period:
+2024-02-22 10:51:57,215 - SuPy - INFO -   Start: 2012-07-01 00:05:00
+2024-02-22 10:51:57,217 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 10:51:57,219 - SuPy - INFO - 
+2024-02-22 10:51:57,220 - SuPy - INFO - No. of grids: 1
+2024-02-22 10:51:57,221 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 10:57:46,774 - SuPy - INFO - Execution time: 349.6 s
+2024-02-22 10:57:46,775 - SuPy - INFO - ====================
+
+2024-02-22 10:57:46,780 - SuPy - INFO - ====================
+2024-02-22 10:57:46,781 - SuPy - INFO - Simulation period:
+2024-02-22 10:57:46,783 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 10:57:46,785 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 10:57:46,786 - SuPy - INFO - 
+2024-02-22 10:57:46,787 - SuPy - INFO - No. of grids: 1
+2024-02-22 10:57:46,790 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:01:48,517 - SuPy - INFO - Execution time: 241.7 s
+2024-02-22 11:01:48,519 - SuPy - INFO - ====================
+
+2024-02-22 11:05:09,577 - SuPy - INFO - All cache cleared.
+2024-02-22 11:05:33,060 - SuPy - INFO - ====================
+2024-02-22 11:05:33,061 - SuPy - INFO - Simulation period:
+2024-02-22 11:05:33,062 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:05:33,063 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:05:33,064 - SuPy - INFO - 
+2024-02-22 11:05:33,065 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:05:33,066 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:05:37,181 - SuPy - INFO - Execution time: 4.1 s
+2024-02-22 11:05:37,182 - SuPy - INFO - ====================
+
+2024-02-22 11:05:37,186 - SuPy - INFO - ====================
+2024-02-22 11:05:37,186 - SuPy - INFO - Simulation period:
+2024-02-22 11:05:37,187 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:05:37,189 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:05:37,192 - SuPy - INFO - 
+2024-02-22 11:05:37,196 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:05:37,198 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:09:39,510 - SuPy - INFO - Execution time: 242.3 s
+2024-02-22 11:09:39,512 - SuPy - INFO - ====================
+
+2024-02-22 11:09:39,518 - SuPy - INFO - ====================
+2024-02-22 11:09:39,519 - SuPy - INFO - Simulation period:
+2024-02-22 11:09:39,520 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:09:39,521 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:09:39,523 - SuPy - INFO - 
+2024-02-22 11:09:39,525 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:09:39,526 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:13:42,972 - SuPy - INFO - Execution time: 243.5 s
+2024-02-22 11:13:42,972 - SuPy - INFO - ====================
+
+2024-02-22 11:13:42,975 - SuPy - INFO - ====================
+2024-02-22 11:13:42,976 - SuPy - INFO - Simulation period:
+2024-02-22 11:13:42,978 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:13:42,980 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:13:42,981 - SuPy - INFO - 
+2024-02-22 11:13:42,983 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:13:42,985 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:18:01,071 - SuPy - INFO - Execution time: 258.1 s
+2024-02-22 11:18:01,072 - SuPy - INFO - ====================
+
+2024-02-22 11:18:01,074 - SuPy - INFO - ====================
+2024-02-22 11:18:01,075 - SuPy - INFO - Simulation period:
+2024-02-22 11:18:01,076 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:18:01,078 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:18:01,080 - SuPy - INFO - 
+2024-02-22 11:18:01,081 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:18:01,082 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:22:14,608 - SuPy - INFO - Execution time: 253.5 s
+2024-02-22 11:22:14,609 - SuPy - INFO - ====================
+
+2024-02-22 11:22:14,611 - SuPy - INFO - ====================
+2024-02-22 11:22:14,613 - SuPy - INFO - Simulation period:
+2024-02-22 11:22:14,614 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:22:14,615 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:22:14,617 - SuPy - INFO - 
+2024-02-22 11:22:14,619 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:22:14,620 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:26:19,603 - SuPy - INFO - Execution time: 245.0 s
+2024-02-22 11:26:19,604 - SuPy - INFO - ====================
+
+2024-02-22 11:26:19,606 - SuPy - INFO - ====================
+2024-02-22 11:26:19,606 - SuPy - INFO - Simulation period:
+2024-02-22 11:26:19,608 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:26:19,610 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:26:19,611 - SuPy - INFO - 
+2024-02-22 11:26:19,613 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:26:19,614 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:30:20,599 - SuPy - INFO - Execution time: 241.0 s
+2024-02-22 11:30:20,600 - SuPy - INFO - ====================
+
+2024-02-22 11:30:20,602 - SuPy - INFO - ====================
+2024-02-22 11:30:20,603 - SuPy - INFO - Simulation period:
+2024-02-22 11:30:20,605 - SuPy - INFO -   Start: 2012-07-10 00:05:00
+2024-02-22 11:30:20,606 - SuPy - INFO -   End: 2012-07-31 23:55:00
+2024-02-22 11:30:20,608 - SuPy - INFO - 
+2024-02-22 11:30:20,609 - SuPy - INFO - No. of grids: 1
+2024-02-22 11:30:20,611 - SuPy - INFO - SuPy is running in serial mode
+2024-02-22 11:34:12,522 - SuPy - INFO - Execution time: 231.9 s
+2024-02-22 11:34:12,524 - SuPy - INFO - ====================
+
