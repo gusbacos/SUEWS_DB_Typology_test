@@ -188,7 +188,7 @@ six==1.16.0
     #   unittest2
 stack-data==0.6.3
     # via ipython
-supy==2024.3.14.dev0
+supy==2024.3.25.dev0
 toolz==0.12.1
     # via
     #   dask
