@@ -38,6 +38,8 @@ decorator==5.1.1
     # via ipython
 dill==0.3.8
     # via multiprocess
+et-xmlfile==1.1.0
+    # via openpyxl
 exceptiongroup==1.2.0
     # via ipython
 executing==2.0.1
@@ -110,6 +112,7 @@ numpy==1.23.5
     #   scipy
     #   seaborn
     #   xarray
+openpyxl==3.1.2
 packaging==24.0
     # via
     #   dask
