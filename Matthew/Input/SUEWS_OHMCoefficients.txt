@@ -1,0 +1,16 @@
+1	2	3	4		
+Code	a1	a2	a3		
+50240001	0.719	0.194	-36.6	!	"Impervious (average). This is the average of Codes 801, 802, 901, 902, 903, 905, 906. [800], nan"
+50240002	0.19	0.54	-15.125	!	"Roof (own for SMEAR III, Helsinki) [750], Helsinki"
+50240007	0.11	0.11	-12.3	!	"Mixed Forest [20]  McCaughey (1985), nan"
+50240016	0.25	0.6	-30	!	"Snow [61], Helsinki"
+50240018	0.379	0.335	-30.05	!	"Code 55 x Mulitplier for summer [551], nan"
+50240019	0.445	0.335	11.77	!	"Code 55 x Mulitplier for winter [552], nan"
+50240021	0.534	0.21	-33.31	!	"Code 60 x Multiplier for summer [601], nan"
+50240022	0.627	0.21	13.05	!	"Code 60 x Multiplier for winter [602], nan"
+50240024	0.238	0.427	-16.7	!	"Original roof average (inlcudes two not recommended - Meyn 2001 and old Meyn 2001 coefficients) [799] [sample run], nan"
+50240009	0.32	0.54	-27.4	!	"Short grass [30], nan"
+50240010	0.23	0.325	-16.91	!	"Code 201 x Mulitplier for summer [2011], nan"
+50240011	0.27	0.325	6.62	!	"Code 201 x Multiplier for winter [2012], nan"
+-9					
+-9					

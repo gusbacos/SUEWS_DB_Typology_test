@@ -1,0 +1,37 @@
+&RunControl
+CBLUse                = 0
+SnowUse               = 0
+NetRadiationMethod    = 100
+EmissionsMethod       = 2
+BaseTMethod           = 1
+StorageHeatMethod     = 5
+OHMIncQF              = 0
+StabilityMethod       = 3
+RoughLenHeatMethod    = 2
+RoughLenMomMethod     = 3
+FAIMethod             = 0
+SMDMethod             = 0
+WaterUseMethod        = 0
+FileCode              = 'test'
+FileInputPath         = "./Input_test/"
+FileOutputPath        = "./Output/"
+MultipleMetFiles      = 0
+MultipleInitFiles     = 0
+MultipleESTMFiles     = 0
+MultipleLayoutFiles   = 1
+KeepTstepFilesIn      = 0
+KeepTstepFilesOut     = 0
+WriteOutOption        = 2
+ResolutionFilesOut    = 3600
+Tstep                 = 300
+ResolutionFilesIn     = 3600
+ResolutionFilesInESTM = 3600
+DisaggMethod          = 1
+RainDisaggMethod      = 100
+DisaggMethodESTM      = 1
+SuppressWarnings      = 1
+KdownZen              = 0
+diagnose              = 0
+diagMethod            = 2
+stebbsmethod          = 0
+/

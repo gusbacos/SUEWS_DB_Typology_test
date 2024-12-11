@@ -1,0 +1,12 @@
+1	2	3	4		
+Code	a1	a2	a3		
+50240001.0	0.719	0.194	-36.6	!	Impervious (average). This is the average of Codes 801, 802, 901, 902, 903, 905, 906. [800], nan
+50240002.0	0.19	0.54	-15.125	!	Roof (own for SMEAR III, Helsinki) [750], Helsinki
+50240007.0	0.11	0.11	-12.3	!	Mixed Forest [20]  McCaughey (1985), nan
+50240016.0	0.25	0.6	-30.0	!	Snow [61], Helsinki
+50240018.0	0.379	0.335	-30.05	!	Code 55 x Mulitplier for summer [551], nan
+50240019.0	0.445	0.335	11.77	!	Code 55 x Mulitplier for winter [552], nan
+50240021.0	0.534	0.21	-33.31	!	Code 60 x Multiplier for summer [601], nan
+50240022.0	0.627	0.21	13.05	!	Code 60 x Multiplier for winter [602], nan
+-9.0					
+-9.0					
