@@ -4,8 +4,6 @@ appnope==0.1.4
     # via ipykernel
 argparse==1.4.0
     # via unittest2
-asteval==0.9.32
-    # via lmfit
 asttokens==2.4.1
     # via stack-data
 atmosp==0.2.9
