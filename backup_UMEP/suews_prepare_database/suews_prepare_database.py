@@ -1046,26 +1046,27 @@ class SUEWSPrepareDatabase(object):
             ## Spartacus ##
             if settings_dict['spartacus'] == 1:
                 #vertical info from IMP calc
-                ssVect = np.loadtxt(settings_dict['ss_dir'] + '/' + pre + '_IMPGrid_SS_' + str(id) + '.txt', skiprows = 1) 
+                # ssVect = np.loadtxt(settings_dict['ss_dir'] + '/' + pre + '_IMPGrid_SS_' + str(id) + '.txt', skiprows = 1)
+                ssVect  = pd.read_csv(settings_dict['ss_dir'] + '/' + pre + '_IMPGrid_SS_' + str(id) + '.txt', sep='\s+')
 
                 # Some error check before calculation of gridlayout
                 error_output = {}
                 vertHeightsIn = settings_dict['vertheights']
                 if settings_dict['heightMethod'] == 1: # static levels (taken from interface). Last value > max height
-                    if ssVect[:,0].max() <= max(vertHeightsIn):
-                        error_output = {id : f'zMax ({str(ssVect[:,0].max())}) is lower than max fixed height  {str(max(vertHeightsIn))}.'}
+                    if ssVect['z'].max() <= max(vertHeightsIn):
+                        error_output = {id : f'zMax ({str(ssVect['z'].max())}) is lower than max fixed height  {str(max(vertHeightsIn))}.'}
                         print('error in ID: ', str(id), f'. zMax is lower than max fixed height {str(max(vertHeightsIn))}.')
-                        QMessageBox.critical(None, "Error in Vertical Morphology Spartcus (opt 1)", 'error in ID: ' + str(id) + '. zMax (' + str(ssVect[:,0].max()) + 
+                        QMessageBox.critical(None, "Error in Vertical Morphology Spartcus (opt 1)", 'error in ID: ' + str(id) + '. zMax (' + str(ssVect['z'].max()) + 
                                      ') lower than max fixed height ' + str(max(vertHeightsIn)) + '. Use other method or reduce fixed layer height.')
                         self.dlg.progressBar.setValue(index)
                         return
 
                 elif settings_dict['heightMethod'] == 2: # always nlayers layer based on percentiles
                     nlayerOut = settings_dict['nlayers']
-                    if ssVect[:,0].max() <= nlayerOut:
-                        error_output = {id : f'zMax ({str(ssVect[:,0].max())}) is to low to use {str(nlayerOut)} vertical layers.'}
+                    if ssVect['z'].max() <= nlayerOut:
+                        error_output = {id : f'zMax ({str(ssVect['z'].max())}) is to low to use {str(nlayerOut)} vertical layers.'}
                         print('error in ID: ', str(id), f'. zMax is to low to use {str(nlayerOut)} vertical layers.')
-                        QMessageBox.critical(None, "Error in Vertical Morphology Spartcus (opt 2)", 'error in ID: ' + str(id) + '. zMax (' + str(ssVect[:,0].max()) + 
+                        QMessageBox.critical(None, "Error in Vertical Morphology Spartcus (opt 2)", 'error in ID: ' + str(id) + '. zMax (' + str(ssVect['z'].max()) + 
                                      ') is to low when using ' + str(nlayerOut) + ' vertical layers. Use other method or reduce number of vertical layers.')
                         self.dlg.progressBar.setValue(index)
                         return
@@ -1215,11 +1216,11 @@ class SUEWSPrepareDatabase(object):
             # figure out the time res of input file
             if ind == 1:
                 met_old = np.genfromtxt(settings_dict['Metfile_path'][0], skip_header=1, skip_footer=2)
-                id = met_old[:, 1]
+                met_id = met_old[:, 1]
                 it = met_old[:, 2]
                 imin = met_old[:, 3]
-                dectime0 = id[0] + it[0] / 24 + imin[0] / (60 * 24)
-                dectime1 = id[1] + it[1] / 24 + imin[1] / (60 * 24)
+                dectime0 = met_id[0] + it[0] / 24 + imin[0] / (60 * 24)
+                dectime1 = met_id[1] + it[1] / 24 + imin[1] / (60 * 24)
                 res = int(np.round((dectime1 - dectime0) * (60 * 24)))
                 ind = 999
 
@@ -1631,7 +1632,7 @@ class SUEWSPrepareDatabase(object):
                     'bsoil': fill_bare_soil_yaml(nonVeg_dict[feat_id]['Bare Soil'], db_dict, LCF_baresoil, IrrFr_BSoil, zenodo) ,
                     'water': fill_water_yaml(water_dict, db_dict, LCF_water, IrrFr_Water, zenodo),
                 },
-                'vertical_layers' : ss_calc_gridlayout(build_array, wall_array, typoList, typo_array,  gridlayoutOut, feat_id, db_dict, zenodo, ssVect),
+                'vertical_layers' : ss_calc_gridlayout(build_array, wall_array, typoList, typo_array,  gridlayoutOut, feat_id, db_dict, zenodo, settings_dict['ss_dir'], pre),
                 'n_buildings':{
                     'value': gridlayoutOut[feat_id]['buildings_count']}, # buildings_count_dict[feat_id]
                 'h_std':
@@ -1792,11 +1793,11 @@ class SUEWSPrepareDatabase(object):
                 'properties': copy.deepcopy(properties),
                 'initial_states' : copy.deepcopy(initial_states)
             }
-
+            
+            grid = check_fraction_consistency(grid)
+            
             ss_dict['site'].append(grid)
 
-            check_fraction_conistency(ss_dict['Site'])
-    
         # Convert values in the nested dictionary
         ss_dict_native = convert_numpy_types(ss_dict)
 

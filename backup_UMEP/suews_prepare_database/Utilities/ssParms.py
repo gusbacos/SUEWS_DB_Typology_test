@@ -76,36 +76,36 @@ def getVertheights(ssVect, heightMethod, vertHeightsIn, nlayerIn, skew, id):
     '''
     #error_output={}
     if heightMethod == 1: # static levels (taken from interface). Last value > max height
-        # if ssVect[:,0].max() < max(vertHeightsIn):
-        #     error_output = {id : f'zMax ({str(ssVect[:,0].max())}) is lower than max fixed height  {str(max(vertHeightsIn))}.'}
+        # if ssVect['z'].max() < max(vertHeightsIn):
+        #     error_output = {id : f'zMax ({str(ssVect['z'].max())}) is lower than max fixed height  {str(max(vertHeightsIn))}.'}
         #     print('error in ID: ', str(id), f'. zMax is lower than max fixed height {str(max(vertHeightsIn))}.')
-        if ssVect[:,0].max() > max(vertHeightsIn):
-            vertHeightsIn.append(ssVect[:,0].max())
+        if ssVect['z'].max() > max(vertHeightsIn):
+            vertHeightsIn.append(ssVect['z'].max())
         heightIntervals = vertHeightsIn
         nlayerOut = len(heightIntervals) - 1
 
     elif heightMethod == 2: # always nlayers layer based on percentiles
         nlayerOut = nlayerIn
-        # if ssVect[:,0].max() <= nlayerOut:
-        #     error_output = {id : f'zMax ({str(ssVect[:,0].max())}) is to low to use {str(nlayerOut)} vertical layers.'}
+        # if ssVect['z'].max() <= nlayerOut:
+        #     error_output = {id : f'zMax ({str(ssVect['z'].max())}) is to low to use {str(nlayerOut)} vertical layers.'}
         #     print('error in ID: ', str(id), f'. zMax is to low to use {str(nlayerOut)} vertical layers.')
-            # QMessageBox.critical(None, "Error in Vertical Morphology Spartcus ", 'error in ID: ' + str(id) + '. zMax (' + str(ssVect[:,0].max()) + ') is to low to use ' + str(nlayerOut) + ' vertical layers.')
+            # QMessageBox.critical(None, "Error in Vertical Morphology Spartcus ", 'error in ID: ' + str(id) + '. zMax (' + str(ssVect['z'].max()) + ') is to low to use ' + str(nlayerOut) + ' vertical layers.')
             # return
 
     elif heightMethod == 3: # vary number of layers based on height variation. Lowest no of nlayers always 3
         nlayerOut = 3
-        if ssVect[:,0].max() > 40: nlayerOut = 4
-        if ssVect[:,0].max() > 60: nlayerOut = 5
-        if ssVect[:,0].max() > 80: nlayerOut = 6
-        if ssVect[:,0].max() > 120: nlayerOut = 7
+        if ssVect['z'].max() > 40: nlayerOut = 4
+        if ssVect['z'].max() > 60: nlayerOut = 5
+        if ssVect['z'].max() > 80: nlayerOut = 6
+        if ssVect['z'].max() > 120: nlayerOut = 7
 
     if heightMethod > 1: # detrmine if exponential hieght should be used
-        intervals = np.ceil(ssVect[:,0].max() / nlayerOut) #TODO: Fix if no buildings and/or no veg is present.
+        intervals = np.ceil(ssVect['z'].max() / nlayerOut) #TODO: Fix if no buildings and/or no veg is present.
         heightIntervals = []
         heightIntervals.append(.0)
         for i in range(1, nlayerOut):
             heightIntervals.append(float(round((intervals * i) / skew)))
-        heightIntervals.append(float(ssVect[:,0].max()))
+        heightIntervals.append(float(ssVect['z'].max()))
 
     return heightIntervals, nlayerOut #, error_output Moved out
 
@@ -137,10 +137,13 @@ def calculate_fractions(dictTypofrac, heights):
     
     return fractions
 
-def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayoutOut, id,db_dict, zenodo, ssVect):
+def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayoutOut, id ,db_dict, zenodo, ss_dir, pre):
     '''
     This function calculates all values in GridLayout based on typology and morhpology
     '''
+
+    ssVect  = pd.read_csv(ss_dir + '/' + pre + '_IMPGrid_SS_' + str(id) + '.txt', sep='\s+')
+
     dictTypofrac = {} # empty dict to calc fractions for current grid and typology for each meter
     allRoof = [] #for sfr_roof
     allWall = [] #for sfr_wall
@@ -156,20 +159,21 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
         'walls' : {}
         }
     
+
     index = int(0)
     for i in range(1,len(gridlayoutOut[id]['height'])): #TODO this loop need to be confirmed by Reading
         index += 1
         startH = int(gridlayoutOut[id]['height'][index-1])
         endH = int(gridlayoutOut[id]['height'][index])
         if index == 1:
-            vertical_layers['building_frac']['value'].append(ssVect[0,1]) # first is plan area index of buildings
-            vertical_layers['veg_frac']['value'].append(ssVect[0,3]) # first is plan area index of trees
+            vertical_layers['building_frac']['value'].append(ssVect.loc[0,'paib']) # first is plan area index of buildings
+            vertical_layers['veg_frac']['value'].append(ssVect.loc[0,'paiv']) # first is plan area index of trees
         else:
-            vertical_layers['building_frac']['value'].append(np.round(np.mean(ssVect[startH:endH, 1]),3)) # intergrated pai_build mean in ith vertical layer
-            vertical_layers['veg_frac']['value'].append(np.round(np.mean(ssVect[startH:endH, 3]),3)) # intergrated pai_veg mean in ith vertical layer
+            vertical_layers['building_frac']['value'].append(np.round(np.mean(ssVect.loc[startH:endH, 'paib']),3)) # intergrated pai_build mean in ith vertical layer
+            vertical_layers['veg_frac']['value'].append(np.round(np.mean(ssVect.loc[startH:endH, 'paiv']),3)) # intergrated pai_veg mean in ith vertical layer
 
-        vertical_layers['building_scale']['value'].append(np.round(np.mean(ssVect[startH:endH, 2]),3)) # intergrated bscale mean in ith vertical layer
-        vertical_layers['veg_scale']['value'].append(np.round(np.mean(ssVect[startH:endH, 4]),3)) # intergrated vscale mean in ith vertical layer
+        vertical_layers['building_scale']['value'].append(np.round(np.mean(ssVect.loc[startH:endH, 'bScale']),3)) # intergrated bscale mean in ith vertical layer
+        vertical_layers['veg_scale']['value'].append(np.round(np.mean(ssVect.loc[startH:endH, 'vScale']),3)) # intergrated vscale mean in ith vertical layer
     
 
     if len(typoList) != 1:

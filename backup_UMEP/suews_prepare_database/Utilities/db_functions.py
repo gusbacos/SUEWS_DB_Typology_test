@@ -3,8 +3,8 @@ from numpy import nonzero, isnan, nan, vectorize, average, int32, int64, int8, f
 from time import sleep
 from datetime import datetime
 from collections import defaultdict
-
-
+from PyQt5.QtWidgets import QMessageBox, QApplication
+import sys
 from scipy.ndimage import maximum_filter, label
 
 zenodo = 'https://doi.org/10.5281/zenodo.2284987'
@@ -198,10 +198,64 @@ def create_code(table_name):
     
     return code
 
-def check_fraction_consistency(ss_dict):
-    a = 1
-
     
+# def show_popup():
+#     app = QApplication(sys.argv)
+#     msg = QMessageBox()
+#     msg.setIcon(QMessageBox.Information)
+#     msg.setWindowTitle("Information")
+#     msg.setText("A difference has been detected. Please select which dataset you want to adjust building fractions from.")
+#     landcover_button = msg.addButton("Landcover Dataset", QMessageBox.ActionRole)
+#     dsm_button = msg.addButton("DSM Dataset", QMessageBox.ActionRole)
+#     msg.exec_()
+
+#     if msg.clickedButton() == landcover_button:
+#         return 0
+#     elif msg.clickedButton() == dsm_button:
+#         return 1
+
+
+def check_fraction_consistency(ss_dict):
+
+    dataset_of_choice = 1 # Default value
+    building_frac_lc = ss_dict['properties']['land_cover']['bldgs']['sfr']['value']
+    paved_frac_lc = ss_dict['properties']['land_cover']['paved']['sfr']['value']
+    # evergreen_frac_lc = ss_dict['properties']['land_cover']['evetr']['sfr']['value']
+    # dec_frac_lc = ss_dict['properties']['land_cover']['dectr']['sfr']['value']
+    # grass_frac_lc = ss_dict['properties']['land_cover']['grass']['sfr']['value']
+    # bsoil_frac_lc = ss_dict['properties']['land_cover']['bsoil']['sfr']['value']
+    # water_frac_lc = ss_dict['properties']['land_cover']['water']['sfr']['value']
+
+    building_frac_spartacus = ss_dict['properties']['vertical_layers']['building_frac']['value'][0]
+
+    diff = building_frac_lc - building_frac_spartacus
+
+    print('lc:',building_frac_lc)
+    print('SS:',building_frac_spartacus)
+
+    if abs(diff) == 0:
+        print('no diff detected')
+        pass
+    elif abs(diff) > 0 and abs(diff) < 0.03:
+        print(f'Difference of {round(abs(diff),4)} between PAI and Building Fraction detected')
+        # we can give user chance to chose on what datasource they think is best
+
+        # If LC fraction is lower, we need to adjust that one since Spartacus needs to work with highest value or PAI at lowest vertical layer
+        if dataset_of_choice == 0:
+            diff = abs(diff)
+            ss_dict['properties']['vertical_layers']['building_frac']['value'][0] = building_frac_lc
+            
+        elif dataset_of_choice == 1:
+            diff = abs(diff)
+            ss_dict['properties']['land_cover']['paved']['sfr']['value'] = paved_frac_lc - diff
+            ss_dict['properties']['land_cover']['bldgs']['sfr']['value'] = building_frac_lc + diff
+
+    elif abs(diff) > 0.03:
+        print('error! ')
+        print(f'Difference of {round(abs(diff),4)} between PAI and Building Fraction detected')
+
+    return ss_dict
+
 def convert_numpy_types(obj):
     ''' 
     function needed to convert numpy entries to naitive python float and int in the ss_dict. 
@@ -266,6 +320,7 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
         agg_surface.loc[1,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
         agg_surface.loc[1,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
         agg_surface.loc[1,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[1,'rho'] * agg_surface.loc[1,'dz'])
+        agg_surface.loc[1,'cp'] = agg_surface.loc[1,'cp'] * agg_surface.loc[1,'rho']
 
         # Fill layer 2-5 with thin layers of air
         for layer in range(2,6):
@@ -292,7 +347,8 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
         agg_surface.loc[1,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
         agg_surface.loc[1,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
         agg_surface.loc[1,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[1,'rho'] * agg_surface.loc[1,'dz'])
-
+        agg_surface.loc[1,'cp'] = agg_surface.loc[1,'cp'] * agg_surface.loc[1,'rho']
+        
         # ------------------------------------- Layer 2 -------------------------------------
         layer = layer +1 
         # print('Insulation layer [2]:' , insulation )
@@ -302,6 +358,7 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
         agg_surface.loc[2,'k'] = mat['Thermal Conductivity']
         agg_surface.loc[2,'rho'] = mat['Density']
         agg_surface.loc[2,'cp'] = mat['Specific Heat']
+        agg_surface.loc[2,'cp'] = agg_surface.loc[2,'cp'] * agg_surface.loc[2,'rho']
 
         # ------------------------------------- Layer 3 -------------------------------------
         layer = layer +1
@@ -313,6 +370,7 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
             agg_surface.loc[3,'k'] = mat['Thermal Conductivity']
             agg_surface.loc[3,'rho'] = mat['Density']
             agg_surface.loc[3,'cp'] = mat['Specific Heat']
+            agg_surface.loc[3,'cp'] = agg_surface.loc[3,'cp'] * agg_surface.loc[3,'rho']
 
             # Fill 2 inner layers with superthin layers of air
             for layer in range(4,6):
@@ -320,6 +378,7 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
                 agg_surface.loc[layer,'k'] = 0.19
                 agg_surface.loc[layer,'rho'] = 906
                 agg_surface.loc[layer,'cp'] = 950
+                agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
 
         elif layer < 5:
             d_list = []
@@ -338,13 +397,15 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
                 agg_surface.loc[3,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
                 agg_surface.loc[3,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
                 agg_surface.loc[3,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[3,'rho'] * agg_surface.loc[3,'dz'])
-            
+                agg_surface.loc[3,'cp'] = agg_surface.loc[3,'cp'] * agg_surface.loc[3,'rho']
+
             # Fill 2 inner layers with superthin layers of air
             for layer in range(4,6):
                 agg_surface.loc[layer,'dz'] = 0.01
                 agg_surface.loc[layer,'k'] = 0.19
                 agg_surface.loc[layer,'rho'] = 906
                 agg_surface.loc[layer,'cp'] = 950
+                agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
 
         elif layer > 5:
             for layer in range(3,6):
@@ -352,16 +413,19 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
                 agg_surface.loc[layer,'k'] = 0.19
                 agg_surface.loc[layer,'rho'] = 906
                 agg_surface.loc[layer,'cp'] = 950
+                agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
+
         # -----------------------------------------------------------------------------------
 
 
     if no_rho == True:
         # AS OF 20250224 Remove rho and recalculate cp as rhocp
-        agg_surface['cp'] = agg_surface['cp'] * agg_surface['cp']
         agg_surface = agg_surface.drop(columns = ['rho'])
         agg_surface = agg_surface.round(3).loc[:,['dz','k','cp']].to_dict()
+
     else:
         agg_surface = agg_surface.round(3).loc[:,['dz','k','cp','rho']].to_dict()
+
     agg_surface = {key: list(value.values()) for key, value in agg_surface.items()}
     agg_surface = {key: {'value': value} for key, value in agg_surface.items()}
 
