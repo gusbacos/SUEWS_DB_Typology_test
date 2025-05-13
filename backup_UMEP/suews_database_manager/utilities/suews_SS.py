@@ -27,8 +27,7 @@ def setup_SUEWS_SS_creator(self, dlg, db_dict, db_path):
         dlg.comboBoxRef.addItems(sorted(db_dict['References']['authorYear'])) 
         dlg.comboBoxRef.setCurrentIndex(-1)
     
-        mat_list = list(db_dict['Spartacus Material']['nameOrigin'])
-        mat_list.sort()
+        mat_list = list(sorted(db_dict['Spartacus Material']['nameOrigin'], key=str.casefold))
         mat_list.insert(0,'None')
 
         for roofwall in ['r', 'w']:
@@ -138,6 +137,7 @@ def setup_SUEWS_SS_creator(self, dlg, db_dict, db_path):
         
         spartacus_dict['ID'] = create_code('Spartacus Surface')
         spartacus_dict['Name'] = str(dlg.textEditName.value())
+        spartacus_dict['Surface'] = 'Buildings'
         spartacus_dict['Origin'] = str(dlg.textEditOrig.value())
         spartacus_dict['Ref'] = db_dict['References'][db_dict['References']['authorYear'] ==  dlg.comboBoxRef.currentText()].index.item()    
  
@@ -195,7 +195,7 @@ def setup_SUEWS_SS_creator(self, dlg, db_dict, db_path):
      
         new_edit = DataFrame([spartacus_dict]).set_index('ID')
         db_dict['Spartacus Surface'] = concat([db_dict['Spartacus Surface'], new_edit])
-        save_to_db(db_path, db_dict)
+        db_dict = save_to_db(db_path, db_dict)
 
         QMessageBox.information(None, 'Succesful', f'New edit {spartacus_dict['Name']}, {spartacus_dict['Origin']} added to your local database')
         fill_cboxes()
@@ -233,7 +233,9 @@ def setup_SUEWS_SS_creator(self, dlg, db_dict, db_path):
                         material = mat_table.loc[mat_idx, 'nameOrigin']
                         mat_table.loc[mat_idx, 'nameOrigin']
                         cbox_index = mat_list.index(material)
-                        cbox.setCurrentIndex(cbox_index)
+                        cbox.setCurrentIndex(cbox.findText(material))
+
+                        
                         thickness = spartacus_sel.loc[:,(roofwall + str(layer) + 'Thickness')].item()
                         lineEdit.setText(str(thickness))
                                            

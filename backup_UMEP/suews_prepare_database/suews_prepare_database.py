@@ -1079,7 +1079,7 @@ class SUEWSPrepareDatabase(object):
                     settings_dict['nlayers'], 
                     settings_dict['skew'], 
                     id)
-
+                
                 # Add errors (if any) to spartacus error dict used later for
                 if error_output:        
                     spartacus_error_dict = spartacus_error_dict | error_output
@@ -1107,7 +1107,7 @@ class SUEWSPrepareDatabase(object):
                 build_array = dataset.ReadAsArray().astype(float)
                 bigraster = None
                 dataset = None
-
+                
                 bigraster = gdal.Open(walls_raster_out)
                 clip_spec = gdal.WarpOptions(format="GTiff", cutlineDSName=dir_poly, cropToCutline=True)
                 gdal.Warp(temp_folder + '/clipwall.tif', bigraster, options=clip_spec)
@@ -1140,6 +1140,7 @@ class SUEWSPrepareDatabase(object):
 
                 buildings_count = count_buildings(dsm_clip_array, dem_clip_array) 
      
+                gridlayoutOut[id]['wallAreaGrid'] = wall_array.sum() * pixelSize
                 gridlayoutOut[id]['buildings_count'] = buildings_count
 
                 typoList = np.unique(typo_array) 
@@ -1255,7 +1256,7 @@ class SUEWSPrepareDatabase(object):
                 },
                 'physics': {
                     'netradiationmethod': {'value': 1003},
-                    'emissionsmethod': {'value' :2},#'value': db_dict['AnthropogenicEmission'].loc[parameter_dict['AnthropogenicCode'],'Model']},
+                    'emissionsmethod': {'value' : db_dict['AnthropogenicEmission'].loc[parameter_dict['AnthropogenicCode'],'Model']},
                     'storageheatmethod': {'value': 5},
                     'ohmincqf': {'value': 1},
                     'roughlenmommethod': {'value': 3},
@@ -1272,7 +1273,7 @@ class SUEWSPrepareDatabase(object):
             },
             'site' : []
         }
-    
+        
         # Loop Start for each Grid
         for feature in settings_dict['vlayer'].getFeatures():
 
@@ -1444,7 +1445,6 @@ class SUEWSPrepareDatabase(object):
             # name-description + site/landcover
             TrafficRate_WD = 0.0135 ## Already in dict
             TrafficRate_WE = 0.0095 ## Already in dict
-            spartacusDict = {}
             AnEm = fill_AnEm_yaml(db_dict, parameter_dict['AnthropogenicCode'], profiles_dict, parameter_dict, settings_dict['start_DLS'], settings_dict['end_DLS'], TrafficRate_WD, TrafficRate_WE, pop_density_night, pop_density_day, zenodo)
 
             # Lägg till grids i listan inom en loop
@@ -1631,12 +1631,16 @@ class SUEWSPrepareDatabase(object):
                     'grass': fill_veg_yaml(veg_dict, db_dict, 'Grass', LCF_grass, irrFr_Grass, 0, 0, parameter_dict['IrrigationCode'], zenodo), # grass has no mean height or FAI
                     'bsoil': fill_bare_soil_yaml(nonVeg_dict[feat_id]['Bare Soil'], db_dict, LCF_baresoil, IrrFr_BSoil, zenodo) ,
                     'water': fill_water_yaml(water_dict, db_dict, LCF_water, IrrFr_Water, zenodo),
-                },
-                'vertical_layers' : ss_calc_gridlayout(build_array, wall_array, typoList, typo_array,  gridlayoutOut, feat_id, db_dict, zenodo, settings_dict['ss_dir'], pre),
+                },  
+                'vertical_layers' : ss_calc_gridlayout(build_array, wall_array, typoList, typo_array,  gridlayoutOut, feat_id, db_dict, zenodo, settings_dict['ss_dir'], pre, grid_dict[feat_id]),
                 'n_buildings':{
                     'value': gridlayoutOut[feat_id]['buildings_count']}, # buildings_count_dict[feat_id]
                 'h_std':
-                    {'value': convert_numpy_types(df_build_frac.loc[feat_id, 'z_stdev'])},
+                    {'value': IMP_sd},#df_build_frac.loc[feat_id, 'z_stdev']},
+                # TODO AS of 2025-04-19 This is the lambda_c calc. (Wallarea(m2) / pai(m2)) + 1. As roof area is same as building footprint area
+                # When we can calculate roof-area, use (Areaexternalwall + Arearoof) / pai  
+                'lambda_c' : 
+                    {'value' : round(float((gridlayoutOut[feat_id]['wallAreaGrid']) / ((hectare* 10000) * LCF_buildings)) + 1, 4)}
             }
 
             initial_states = {
@@ -1644,7 +1648,7 @@ class SUEWSPrepareDatabase(object):
 
                 'paved': {
                 'state': {'value': 0.0},
-                'soilstore': {'value': 150.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1657,7 +1661,7 @@ class SUEWSPrepareDatabase(object):
 
                 'bldgs': {
                 'state': {'value': 0.0},
-                'soilstore': {'value': 150.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1670,7 +1674,7 @@ class SUEWSPrepareDatabase(object):
 
                 'evetr': {
                 'state': {'value': 0.0},
-                'soilstore': {'value': 150.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1692,7 +1696,7 @@ class SUEWSPrepareDatabase(object):
 
                 'dectr': {
                 'state': {'value': 0.0},
-                'soilstore': {'value': 150.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1716,7 +1720,7 @@ class SUEWSPrepareDatabase(object):
 
                 'grass': {
                 'state': {'value': 0.0},
-                'soilstore': {'value': 150.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1726,7 +1730,7 @@ class SUEWSPrepareDatabase(object):
                 'tsfc': {'value': 15.0},
                 'tin': {'value': 20.0},
                 'alb_id': {'value': leaf_cycle_dict[leaf_cycle]['albGrass0']},
-                'lai_id': {'value': leaf_cycle_dict[leaf_cycle]['laiinitialgrass']}},
+                'lai_id': {'value': leaf_cycle_dict[leaf_cycle]['laiinitialgrass']},
                 'gdd_id': {'value': leaf_cycle_dict[leaf_cycle]['gdd_1_0']},
                 'sdd_id': {'value': leaf_cycle_dict[leaf_cycle]['gdd_2_0']},
                 'wu': {
@@ -1734,10 +1738,11 @@ class SUEWSPrepareDatabase(object):
                     'wu_auto': {'value': 0.0},
                     'wu_manual': {'value': 0.0}
                 },
+                },
 
                 'bsoil': {
                 'state': {'value': 0.0},
-                'soilstore': {'value': 150.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1749,8 +1754,8 @@ class SUEWSPrepareDatabase(object):
                 },
 
                 'water': {
-                'state': {'value': 20000},
-                'soilstore': {'value': 150.0},
+                'state': {'value': 20000.0},
+                'soilstore': {'value': 10},
                 'snowfrac': {'value': 0.0},
                 'snowpack': {'value': 0.0},
                 'icefrac': {'value': 0.0},
@@ -1763,7 +1768,7 @@ class SUEWSPrepareDatabase(object):
 
                 'roofs': [{
                     'state': {'value': 0.0},
-                    'soilstore': {'value': 150.0},
+                    'soilstore': {'value': 10},
                     'snowfrac': {'value': 0.0},
                     'snowpack': {'value': 0.0},
                     'icefrac': {'value': 0.0},
@@ -1775,7 +1780,7 @@ class SUEWSPrepareDatabase(object):
                     }] * gridlayoutOut[feat_id]['nlayer'],
                 'walls': [{
                     'state': {'value': 0.0},
-                    'soilstore': {'value': 150.0},
+                    'soilstore': {'value': 10},
                     'snowfrac': {'value': 0.0},
                     'snowpack': {'value': 0.0},
                     'icefrac': {'value': 0.0},
@@ -1798,6 +1803,9 @@ class SUEWSPrepareDatabase(object):
             
             ss_dict['site'].append(grid)
 
+            print(IMP_sd)
+            print(df_build_frac.loc[feat_id, 'z_stdev'])
+            
         # Convert values in the nested dictionary
         ss_dict_native = convert_numpy_types(ss_dict)
 

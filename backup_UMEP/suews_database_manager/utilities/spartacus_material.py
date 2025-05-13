@@ -6,7 +6,7 @@ def setup_SS_material_creator(self, dlg, db_dict, db_path):
 
     def fill_cbox():
         dlg.comboBoxBase.clear()
-        dlg.comboBoxBase.addItems(sorted(db_dict['Spartacus Material']['nameOrigin'])) 
+        dlg.comboBoxBase.addItems(sorted(db_dict['Spartacus Material']['nameOrigin'], key=str.casefold)) 
         dlg.comboBoxBase.setCurrentIndex(-1)
         
         dlg.comboBoxRef.clear()
@@ -64,8 +64,8 @@ def setup_SS_material_creator(self, dlg, db_dict, db_path):
 
         new_edit = DataFrame([dict_reclass]).set_index('ID')
         db_dict['Spartacus Material'] = concat([db_dict['Spartacus Material'], new_edit])
-
-        save_to_db(db_path, db_dict)
+        print(new_edit)
+        save_to_db(db_path, db_dict)    
 
         QMessageBox.information(None, 'Succesful', 'New edit added to your local database')
         fill_cbox() # Clear tab

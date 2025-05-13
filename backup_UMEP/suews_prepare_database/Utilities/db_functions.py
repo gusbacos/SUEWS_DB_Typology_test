@@ -315,19 +315,19 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
             k_list.append(mat['Thermal Conductivity'])
             rho_list.append(mat['Density'])
             cp_list.append(mat['Specific Heat'])
-        
+
         agg_surface.loc[1,'dz'] = sum(d_list)
         agg_surface.loc[1,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
-        agg_surface.loc[1,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
+        agg_surface.loc[1,'rho'] = sum(d * rho for d, rho in zip(d_list, rho_list)) / sum(d_list)
         agg_surface.loc[1,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[1,'rho'] * agg_surface.loc[1,'dz'])
         agg_surface.loc[1,'cp'] = agg_surface.loc[1,'cp'] * agg_surface.loc[1,'rho']
 
-        # Fill layer 2-5 with thin layers of air
+        # Fill layer 2-5 with nan
         for layer in range(2,6):
-            agg_surface.loc[layer,'dz'] = 0.01
-            agg_surface.loc[layer,'k'] = 0.19
-            agg_surface.loc[layer,'rho'] = 906
-            agg_surface.loc[layer,'cp'] = 950
+            agg_surface.loc[layer,'dz'] = nan
+            agg_surface.loc[layer,'k'] = nan
+            agg_surface.loc[layer,'rho'] = nan
+            agg_surface.loc[layer,'cp'] = nan
     else:
         # ------------------------------------- Layer 1 -------------------------------------
         d_list = []
@@ -372,13 +372,13 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
             agg_surface.loc[3,'cp'] = mat['Specific Heat']
             agg_surface.loc[3,'cp'] = agg_surface.loc[3,'cp'] * agg_surface.loc[3,'rho']
 
-            # Fill 2 inner layers with superthin layers of air
+            # Fill 2 inner layers with nan
             for layer in range(4,6):
-                agg_surface.loc[layer,'dz'] = 0.01
-                agg_surface.loc[layer,'k'] = 0.19
-                agg_surface.loc[layer,'rho'] = 906
-                agg_surface.loc[layer,'cp'] = 950
-                agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
+                agg_surface.loc[layer,'dz'] = nan
+                agg_surface.loc[layer,'k'] = nan
+                agg_surface.loc[layer,'rho'] = nan
+                agg_surface.loc[layer,'cp'] = nan
+                # agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
 
         elif layer < 5:
             d_list = []
@@ -399,21 +399,21 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
                 agg_surface.loc[3,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[3,'rho'] * agg_surface.loc[3,'dz'])
                 agg_surface.loc[3,'cp'] = agg_surface.loc[3,'cp'] * agg_surface.loc[3,'rho']
 
-            # Fill 2 inner layers with superthin layers of air
+            # Fill 2 inner layers with nan
             for layer in range(4,6):
-                agg_surface.loc[layer,'dz'] = 0.01
-                agg_surface.loc[layer,'k'] = 0.19
-                agg_surface.loc[layer,'rho'] = 906
-                agg_surface.loc[layer,'cp'] = 950
-                agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
+                agg_surface.loc[layer,'dz'] = nan
+                agg_surface.loc[layer,'k'] = nan
+                agg_surface.loc[layer,'rho'] = nan
+                agg_surface.loc[layer,'cp'] = nan
+                # agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
 
         elif layer > 5:
             for layer in range(3,6):
-                agg_surface.loc[layer,'dz'] = 0.01
-                agg_surface.loc[layer,'k'] = 0.19
-                agg_surface.loc[layer,'rho'] = 906
-                agg_surface.loc[layer,'cp'] = 950
-                agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
+                agg_surface.loc[layer,'dz'] = nan
+                agg_surface.loc[layer,'k'] = nan
+                agg_surface.loc[layer,'rho'] = nan
+                agg_surface.loc[layer,'cp'] = nan
+                # agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
 
         # -----------------------------------------------------------------------------------
 
@@ -861,15 +861,15 @@ def fill_bare_soil_yaml(indict, db_dict, LCF_baresoil, irrFr, zenodo):
         },
     
         'waterdist': {      # TODO Neds to be set somehow
-            'to_paved': {'value' : 0.1},
-            'to_bldgs': {'value' : 0.1},
-            'to_dectr': {'value' : 0.1},
-            'to_evetr': {'value' : 0.1},
-            'to_grass': {'value' : 0.1},
-            'to_bsoil': {'value' : 0.1},
-            'to_water': {'value' : 0.1},
-            'to_soilstore': {'value' : 0.4},
-            'to_runoff' : {'value' : 0.4}
+            'to_paved': {'value' : 0.0},
+            'to_bldgs': {'value' : 0.0},
+            'to_dectr': {'value' : 0.0},
+            'to_evetr': {'value' : 0.0},
+            'to_grass': {'value' : 0.0},
+            'to_bsoil': {'value' : 0.0},
+            'to_water': {'value' : 0.0},
+            'to_soilstore': {'value' : 1},
+            'to_runoff' : {'value' : 0}
         },
 
         'snowpacklimit': {
@@ -1005,19 +1005,6 @@ def fill_veg_yaml(veg_dict, db_dict, surface, LCF, irrFr, IMPveg_fai, IMPveg_hei
             }
         },
 
-        # Water moving. WithinGridDist
-        'waterdist': {      # TODO Neds to be set somehow
-            'to_paved': {'value' : 0.1},
-            'to_bldgs': {'value' : 0.1},
-            'to_dectr': {'value' : 0.1},
-            'to_evetr': {'value' : 0.1},
-            'to_grass': {'value' : 0.1},
-            'to_bsoil': {'value' : 0.1},
-            'to_water': {'value' : 0.1},
-            'to_soilstore': {'value' : 0.4},
-            'to_runoff' : {'value' : 0.4}
-        },
-
         # Storage and drainage
         'storedrainprm': {
             'store_min': veg_dict[surface]['StorageMin'],
@@ -1046,6 +1033,17 @@ def fill_veg_yaml(veg_dict, db_dict, surface, LCF, irrFr, IMPveg_fai, IMPveg_hei
     }
 
     if surface == 'Evergreen Tree':
+        veg_yaml_dict['waterdist'] = { # TODO Neds to be set somehow
+            'to_paved': {'value' : 0.1},
+            'to_bldgs': {'value' : 0.0},
+            'to_dectr': {'value' : 0.0},
+            'to_evetr': {'value' : 0.0},
+            'to_grass': {'value' : 0.0},
+            'to_bsoil': {'value' : 0.0},
+            'to_water': {'value' : 0.0},
+            'to_soilstore': {'value' : 0.9},
+            'to_runoff' : {'value' : 0}
+        }
         veg_yaml_dict['faievetree'] = {'value': IMPveg_fai}
         veg_yaml_dict['evetreeh'] = {'value': IMPveg_heights_mean}
         veg_yaml_dict['ie_a'] = {
@@ -1065,7 +1063,18 @@ def fill_veg_yaml(veg_dict, db_dict, surface, LCF, irrFr, IMPveg_fai, IMPveg_hei
                 }
             }
         
-    elif surface == 'Decidious Tree':
+    elif surface == 'Deciduous Tree':
+        veg_yaml_dict['waterdist'] = { # TODO Neds to be set somehow
+            'to_paved': {'value' : 0.1},
+            'to_bldgs': {'value' : 0.0},
+            'to_dectr': {'value' : 0.0},
+            'to_evetr': {'value' : 0.0},
+            'to_grass': {'value' : 0.0},
+            'to_bsoil': {'value' : 0.0},
+            'to_water': {'value' : 0.0},
+            'to_soilstore': {'value' : 0.9},
+            'to_runoff' : {'value' : 0}
+        }
         veg_yaml_dict['faidectree'] = {'value' : IMPveg_fai}
         veg_yaml_dict['dectreeh'] = {'value' : IMPveg_heights_mean}
         veg_yaml_dict['ie_a'] = {
@@ -1085,27 +1094,19 @@ def fill_veg_yaml(veg_dict, db_dict, surface, LCF, irrFr, IMPveg_fai, IMPveg_hei
                 } 
             }
 
-        porosity_code = veg_dict[surface]['Code']
+        # porosity_code = veg_dict[surface]['Code']['value']
 
         veg_yaml_dict['pormin_dec'] = {
-            'value': db_dict['Porosity'].loc[porosity_code, 'PorosityMin'],
-            'ref' : {
-                'desc' : db_dict['Porosity'].loc[porosity_code, 'nameOrigin'] ,
-                'ID' : str(porosity_code),
-                'DOI': zenodo
-                } 
+            'value': veg_dict[surface]['PorosityMin']['value'],
+            'ref' : veg_dict[surface]['PorosityMin']['ref']
         } 
         veg_yaml_dict['pormax_dec'] = {
-            'value': db_dict['Porosity'].loc[porosity_code, 'PorosityMax'],
-            'ref' : {
-                'desc' : db_dict['Porosity'].loc[porosity_code, 'nameOrigin'] ,
-                'ID' : str(porosity_code),
-                'DOI': zenodo
-                } 
+            'value': veg_dict[surface]['PorosityMax']['value'],
+            'ref' : veg_dict[surface]['PorosityMax']['ref']
         }
 
-        veg_yaml_dict['capmax_dec'] = {'value' : 100.0},
-        veg_yaml_dict['capmin_dec'] = {'value' : 100.0}
+        veg_yaml_dict['capmax_dec'] = {'value' : 1.0}
+        veg_yaml_dict['capmin_dec'] = {'value' : 1.0}
 
     elif surface == 'Grass':
         veg_yaml_dict['ie_a'] = {
@@ -1124,6 +1125,17 @@ def fill_veg_yaml(veg_dict, db_dict, surface, LCF, irrFr, IMPveg_fai, IMPveg_hei
                 'DOI': zenodo
                 } 
             }
+        veg_yaml_dict['waterdist'] = { # TODO Neds to be set somehow
+            'to_paved': {'value' : 0.0},
+            'to_bldgs': {'value' : 0.0},
+            'to_dectr': {'value' : 0.0},
+            'to_evetr': {'value' : 0.0},
+            'to_grass': {'value' : 0.0},
+            'to_bsoil': {'value' : 0.0},
+            'to_water': {'value' : 0.0},
+            'to_soilstore': {'value' : 1},
+            'to_runoff' : {'value' : 0.0}
+        }
     # Add on BiogenCO2 & Soil params
     veg_yaml_dict = veg_yaml_dict | fill_BiogenCO2_yaml(veg_dict[surface], db_dict, zenodo) 
     veg_yaml_dict = veg_yaml_dict | fill_soil_yaml(db_dict, veg_dict[surface], 'Veg', zenodo)
@@ -1167,18 +1179,6 @@ def fill_nonveg_yaml(nonveg_dict, db_dict, surface, LCF, irrFr, IMP_fai, IMP_hei
             }
         },
 
-        'waterdist': {      # TODO Neds to be set somehow
-            'to_paved': {'value' : 0.1},
-            'to_bldgs': {'value' : 0.1},
-            'to_dectr': {'value' : 0.1},
-            'to_evetr': {'value' : 0.1},
-            'to_grass': {'value' : 0.1},
-            'to_bsoil': {'value' : 0.1},
-            'to_water': {'value' : 0.1},
-            'to_soilstore': {'value' : 0.4},
-            'to_runoff' : {'value' : 0.4}
-        },
-
         'storedrainprm': {
             'store_min': nonveg_dict[surface]['StorageMin'],
             'store_max': nonveg_dict[surface]['StorageMax'],
@@ -1206,8 +1206,30 @@ def fill_nonveg_yaml(nonveg_dict, db_dict, surface, LCF, irrFr, IMP_fai, IMP_hei
     if surface == 'Buildings':
         nonveg_yaml_dict['faibldg'] = {'value' : IMP_fai}
         nonveg_yaml_dict['bldgh'] = {'value' : IMP_heights_mean}
-    
-    
+        nonveg_yaml_dict['waterdist'] = { # TODO Neds to be set somehow
+            'to_paved': {'value' : 0.1},
+            'to_bldgs': {'value' : 0.0},
+            'to_dectr': {'value' : 0.0},
+            'to_evetr': {'value' : 0.0},
+            'to_grass': {'value' : 0.0},
+            'to_bsoil': {'value' : 0.0},
+            'to_water': {'value' : 0.0},
+            'to_soilstore': {'value' : 0.0},
+            'to_runoff' : {'value' : 0.9}
+        }
+    else:
+        nonveg_yaml_dict['waterdist'] = { # TODO Neds to be set somehow
+            'to_paved': {'value' : 0.},
+            'to_bldgs': {'value' : 0.},
+            'to_dectr': {'value' : 0.},
+            'to_evetr': {'value' : 0.},
+            'to_grass': {'value' : 0.02},
+            'to_bsoil': {'value' : 0.},
+            'to_water': {'value' : 0.},
+            'to_soilstore': {'value' : 0.},
+            'to_runoff' : {'value' : 0.98}
+        }
+
     nonveg_yaml_dict = nonveg_yaml_dict | fill_soil_yaml(db_dict, nonveg_dict[surface], 'NonVeg', zenodo)
     
     nonveg_yaml_dict['ref'] = nonveg_dict[surface]['ref']

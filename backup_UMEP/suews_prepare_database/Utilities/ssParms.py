@@ -64,6 +64,7 @@ def ss_calc(build, cdsm, walls, numPixels):
 
     return ssResult
 
+# GridArea*PAI 
 
 def getVertheights(ssVect, heightMethod, vertHeightsIn, nlayerIn, skew, id):
     '''
@@ -137,10 +138,12 @@ def calculate_fractions(dictTypofrac, heights):
     
     return fractions
 
-def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayoutOut, id ,db_dict, zenodo, ss_dir, pre):
+def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayoutOut, id ,db_dict, zenodo, ss_dir, pre, grid_dict):
     '''
     This function calculates all values in GridLayout based on typology and morhpology
     '''
+
+    print(grid_dict)
 
     ssVect  = pd.read_csv(ss_dir + '/' + pre + '_IMPGrid_SS_' + str(id) + '.txt', sep='\s+')
 
@@ -159,7 +162,6 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
         'walls' : {}
         }
     
-
     index = int(0)
     for i in range(1,len(gridlayoutOut[id]['height'])): #TODO this loop need to be confirmed by Reading
         index += 1
@@ -200,11 +202,13 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
                     dictTypofrac[hh][tt]['wallSum'] = tW.sum()
                     totWallAreaTypo += tW.sum()
 
+        
         # Calculate fractions
         typ_frac_heights_dict = calculate_fractions(dictTypofrac, gridlayoutOut[id]['height']) 
+        typ_frac_heights_dict
 
         typology_ss_dict = {}
-        for typology in typoList[1:]:
+        for typology in list(grid_dict.keys()):#typoList[1:]:
             building_code = db_dict['Types'].loc[typology,'Buildings']
             spartacus_code = db_dict['NonVeg'].loc[building_code, 'Spartacus Surface']
             typology_ss_dict[typology] = {}
@@ -223,24 +227,30 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
                 },
             }
     
-            for vert_heights in list(typ_frac_heights_dict.keys()):
+            for vert_heights in [1]:#list(typ_frac_heights_dict.keys()):
 
                 typology_ss_dict[typology][vert_heights] = {
-                    'wallfrac' : typ_frac_heights_dict[vert_heights][typology]['wallFraction'],
-                    'rooffrac' : typ_frac_heights_dict[vert_heights][typology]['roofFraction']
+                    'wallfrac' : 0,
+                    'rooffrac' : 0
+                    # 'wallfrac' : typ_frac_heights_dict[vert_heights][typology]['wallFraction'],
+                    # 'rooffrac' : typ_frac_heights_dict[vert_heights][typology]['roofFraction']
                 }
+        
+        weights = []
+        for typo in list(grid_dict.keys()):
+            weights.append(grid_dict[typo]['SAreaFrac']) 
 
         # Aggregation based on the provided steps
         for surface in ['roof','wall']:
             ss_list = []
-            for vlayer in list(typ_frac_heights_dict.keys()):
+            for vlayer in [1]:
                 dz_list = []
                 rho_list = []
                 cp_list = []
                 k_list = []
-                
-                weights = [typology_ss_dict[typology][vlayer][f'{surface}frac'] for typology in typology_ss_dict]
 
+                # weights = [typology_ss_dict[typology][vlayer][f'{surface}frac'] for typology in typology_ss_dict]
+            
                 for hlayer in range(5):
                     dz_wall = [typology_ss_dict[typology][surface]['thermal_layers']['value']['dz']['value'][hlayer] for typology in typology_ss_dict]
                     rho_wall = [typology_ss_dict[typology][surface]['thermal_layers']['value']['rho']['value'][hlayer] for typology in typology_ss_dict]
@@ -250,31 +260,83 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
                     emis_wall =[typology_ss_dict[typology][surface]['emissivity'] for typology in typology_ss_dict]
 
                     # Aggregate thickness on weighted average
-                    dz_agg = np.average(dz_wall, weights=weights)
-                    # Aggregate density on weighted average
-                    rho_agg = np.average(rho_wall, weights=weights)
 
-                    # Aggregate thermal conductivity
-                    r_wall = [dz / k for dz, k in zip(dz_wall, k_wall)]
-                    r_agg = np.average(r_wall, weights=weights)
+                    # Filter out the nan values and corresponding weights
+                    filtered_dz_wall = [dz_wall[i] for i in range(len(dz_wall)) if not np.isnan(dz_wall[i])]
+                    if len(filtered_dz_wall) > 0:
 
-                    k_agg = dz_agg / r_agg
+                        filtered_rho_wall = [rho_wall[i] for i in range(len(rho_wall)) if not np.isnan(rho_wall[i])]
+                        filtered_cp_wall = [cp_wall[i] for i in range(len(cp_wall)) if not np.isnan(cp_wall[i])]
+                        filtered_k_wall = [k_wall[i] for i in range(len(k_wall)) if not np.isnan(k_wall[i])]
+                        
+                        filtered_weights = [weights[i] for i in range(len(weights)) if not np.isnan(dz_wall[i])]
+
+                        # Recalculate the weights to sum up to 1
+                        total_weight = sum(filtered_weights)
+
+                        normalized_weights = [w / total_weight for w in filtered_weights]
+
+                        # Weighted average of thickness
+                        dz_agg = np.average(filtered_dz_wall, weights=normalized_weights)
+
+                        # Weighted average of density (if needed, but you mention rho not in YAML)
+                        rho_agg = np.average(filtered_rho_wall, weights=normalized_weights)
+
+                        # Aggregate thermal conductivity
+                        r_wall = [dz / k for dz, k in zip(filtered_dz_wall, filtered_k_wall)]
+                        r_agg = np.average(r_wall, weights=normalized_weights)
+                        k_agg = dz_agg / r_agg
+
+                        # Aggregate volumetric heat capacity (already rhocp in your data)
+                        rhocp_agg = np.average(filtered_cp_wall, weights=normalized_weights)
+
+                        # Calculate cp (specific heat capacity) if needed
+                        # (only if you need cp_agg in J/kgK units instead of J/m3K)
+                        cp_agg = rhocp_agg / rho_agg
+
+
+                        # # Calculate the weighted average
+                        # dz_agg = np.average(filtered_dz_wall, weights=normalized_weights)
+
+                        # # Aggregate density on weighted average
+                        # rho_agg = np.average(filtered_rho_wall, weights=normalized_weights)
+
+                        # # Aggregate thermal conductivity
+                        # r_wall = [dz / k for dz, k in zip(filtered_dz_wall, filtered_k_wall)]
+                        # r_agg = np.average(r_wall, weights=normalized_weights)
+
+                        # k_agg = dz_agg / r_agg
+                        
+                        # # aggregate specific heat capacity
+                        # cp_agg = sum(cp * rho * dz * weight for cp, rho, dz, weight in zip(filtered_cp_wall, filtered_rho_wall, filtered_dz_wall, normalized_weights)) / (dz_agg * rho_agg)
+
+                        # # AS OF 20252024 - no rho in yml, and cp = rhocp
+                        # cp_agg = cp_agg * rho_agg
+
+                        dz_list.append(round(dz_agg,2))
+                        rho_list.append(round(rho_agg,2))
+                        k_list.append(round(k_agg,2))
+                        cp_list.append(round(cp_agg,2))
+
+                        # Aggregate albedo and emissivity on weighted average
+                        alb_agg = np.average(alb_wall, weights=weights)
+                        emis_agg = np.average(emis_wall, weights=weights)
+
+
+                
                     
-                    # aggregate specific heat capacity
-                    cp_agg = sum(cp * rho * dz * weight for cp, rho, dz, weight in zip(cp_wall, rho_wall, dz_wall, weights)) / (dz_agg * rho_agg)
+                    else:
+                        # Fill with nothing if nothing existst
+                        dz_list.append(-9)
+                        rho_list.append(-9)
+                        k_list.append(-9)
+                        cp_list.append(-9)
 
-                    # AS OF 20252024 - no rho in yml, and cp = rhocp
-                    cp_agg = cp_agg * rho_agg
+                        # Aggregate albedo and emissivity on weighted average
+                        alb_agg = np.average(alb_wall, weights=weights)
+                        emis_agg = np.average(emis_wall, weights=weights)
 
-                    dz_list.append(round(dz_agg,2))
-                    rho_list.append(round(rho_agg,2))
-                    k_list.append(round(k_agg,2))
-                    cp_list.append(round(cp_agg,2))
-
-                    # Aggregate albedo and emissivity on weighted average
-                    alb_agg = np.average(alb_wall, weights=weights)
-                    emis_agg = np.average(emis_wall, weights=weights)
-
+                
                 layer = {
                     'alb': {
                         'value' : round(alb_agg, 3),
@@ -305,7 +367,6 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
         code = db_dict['NonVeg'].loc[building_code, 'Spartacus Surface']
 
         spartacus_sel = db_dict['Spartacus Surface'].loc[code]
-
 
         for surface in ['roof', 'wall']:
 
