@@ -191,10 +191,6 @@ toolz==0.12.1
     # via
     #   dask
     #   partd
-tornado==6.4
-    # via
-    #   ipykernel
-    #   jupyter-client
 tqdm==4.66.2
     # via cdsapi
 traceback2==1.4.0
