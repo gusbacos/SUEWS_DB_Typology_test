@@ -294,7 +294,6 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
                         # (only if you need cp_agg in J/kgK units instead of J/m3K)
                         cp_agg = rhocp_agg / rho_agg
 
-
                         # # Calculate the weighted average
                         # dz_agg = np.average(filtered_dz_wall, weights=normalized_weights)
 
@@ -321,6 +320,8 @@ def ss_calc_gridlayout(build_array, wall_array, typoList, typo_array, gridlayout
                         # Aggregate albedo and emissivity on weighted average
                         alb_agg = np.average(alb_wall, weights=weights)
                         emis_agg = np.average(emis_wall, weights=weights)
+
+                        asdf
 
 
                 

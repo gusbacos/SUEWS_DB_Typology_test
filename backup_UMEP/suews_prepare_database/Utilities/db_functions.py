@@ -284,11 +284,10 @@ def decide_country_or_region(col, country_sel, reg):
         var = country_sel[col].item()    
     return var
 
-def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
+def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = False):
 
     surface = db_dict['Spartacus Surface'].loc[surface_code]
     insulation = surface[f'{roofwall}Insulation']
-
     agg_surface = DataFrame()
     horizontal_layers_list = []
 
@@ -300,7 +299,12 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
         except:
             pass
 
+    layer1 = horizontal_layers_list[: insulation -1]
+    layer2 = insulation
+    layer3 = horizontal_layers_list[insulation:]
+
     # Check if insulation layer is set or not
+    # IF no insulation
     if insulation == 6:
         
         d_list = []
@@ -308,7 +312,7 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
         rho_list = []
         cp_list = []
 
-        for layer in horizontal_layers_list[:insulation-1]:
+        for layer in horizontal_layers_list:
             
             mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer}Material']]
             d_list.append(surface[f'{roofwall}{layer}Thickness'])
@@ -320,7 +324,6 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
         agg_surface.loc[1,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
         agg_surface.loc[1,'rho'] = sum(d * rho for d, rho in zip(d_list, rho_list)) / sum(d_list)
         agg_surface.loc[1,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[1,'rho'] * agg_surface.loc[1,'dz'])
-        agg_surface.loc[1,'cp'] = agg_surface.loc[1,'cp'] * agg_surface.loc[1,'rho']
 
         # Fill layer 2-5 with nan
         for layer in range(2,6):
@@ -328,98 +331,111 @@ def horizontal_aggregation(surface_code, roofwall, db_dict, no_rho = True):
             agg_surface.loc[layer,'k'] = nan
             agg_surface.loc[layer,'rho'] = nan
             agg_surface.loc[layer,'cp'] = nan
+
+    # If insulation Exists. 
     else:
         # ------------------------------------- Layer 1 -------------------------------------
+        #                                     Outer Layer
+        # -----------------------------------------------------------------------------------
+
         d_list = []
         k_list = []
         rho_list = []
         cp_list = []
 
-        for layer in range(1, insulation):
-            d_list.append(surface[f'{roofwall}{layer}Thickness'])
-            mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer}Material']]
-            k_list.append(mat['Thermal Conductivity'])
-            rho_list.append(mat['Density'])
-            cp_list.append(mat['Specific Heat'])
+        if len(layer1) == 1:
+            mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer1[0] }Material']]
+            agg_surface.loc[1,'dz'] = surface[f'{roofwall}{layer1[0]}Thickness']
+            agg_surface.loc[1,'k'] = mat['Thermal Conductivity']
+            agg_surface.loc[1,'rho'] = mat['Density']
+            agg_surface.loc[1,'cp'] = mat['Specific Heat']
 
-        # print('Outer layer [1]: 1 -',layer)
-        agg_surface.loc[1,'dz'] = sum(d_list)
-        agg_surface.loc[1,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
-        agg_surface.loc[1,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
-        agg_surface.loc[1,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[1,'rho'] * agg_surface.loc[1,'dz'])
-        agg_surface.loc[1,'cp'] = agg_surface.loc[1,'cp'] * agg_surface.loc[1,'rho']
-        
-        # ------------------------------------- Layer 2 -------------------------------------
-        layer = layer +1 
-        # print('Insulation layer [2]:' , insulation )
-        mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{insulation }Material']]
-
-        agg_surface.loc[2,'dz'] = surface[f'{roofwall}{insulation}Thickness']
-        agg_surface.loc[2,'k'] = mat['Thermal Conductivity']
-        agg_surface.loc[2,'rho'] = mat['Density']
-        agg_surface.loc[2,'cp'] = mat['Specific Heat']
-        agg_surface.loc[2,'cp'] = agg_surface.loc[2,'cp'] * agg_surface.loc[2,'rho']
-
-        # ------------------------------------- Layer 3 -------------------------------------
-        layer = layer +1
-
-        if layer == 5:
-            
-            mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer}Material']]
-            agg_surface.loc[3,'dz'] = surface[f'{roofwall}{layer}Thickness']
-            agg_surface.loc[3,'k'] = mat['Thermal Conductivity']
-            agg_surface.loc[3,'rho'] = mat['Density']
-            agg_surface.loc[3,'cp'] = mat['Specific Heat']
-            agg_surface.loc[3,'cp'] = agg_surface.loc[3,'cp'] * agg_surface.loc[3,'rho']
-
-            # Fill 2 inner layers with nan
-            for layer in range(4,6):
-                agg_surface.loc[layer,'dz'] = nan
-                agg_surface.loc[layer,'k'] = nan
-                agg_surface.loc[layer,'rho'] = nan
-                agg_surface.loc[layer,'cp'] = nan
-                # agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
-
-        elif layer < 5:
-            d_list = []
-            k_list = []
-            rho_list = []
-            cp_list = []
-
-            for layer in horizontal_layers_list[insulation:]:
+        else:
+            for layer in layer1:
+                
                 d_list.append(surface[f'{roofwall}{layer}Thickness'])
                 mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer}Material']]
                 k_list.append(mat['Thermal Conductivity'])
                 rho_list.append(mat['Density'])
                 cp_list.append(mat['Specific Heat'])
 
-                agg_surface.loc[3,'dz'] = sum(d_list)
-                agg_surface.loc[3,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
-                agg_surface.loc[3,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
-                agg_surface.loc[3,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[3,'rho'] * agg_surface.loc[3,'dz'])
-                agg_surface.loc[3,'cp'] = agg_surface.loc[3,'cp'] * agg_surface.loc[3,'rho']
+                # print('Outer layer [1]: 1 -',layer)
+                agg_surface.loc[1,'dz'] = sum(d_list)
+                agg_surface.loc[1,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
+                agg_surface.loc[1,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
+                agg_surface.loc[1,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[1,'rho'] * agg_surface.loc[1,'dz'])
 
-            # Fill 2 inner layers with nan
-            for layer in range(4,6):
-                agg_surface.loc[layer,'dz'] = nan
-                agg_surface.loc[layer,'k'] = nan
-                agg_surface.loc[layer,'rho'] = nan
-                agg_surface.loc[layer,'cp'] = nan
-                # agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
+        # ------------------------------------- Layer 2 -------------------------------------
+        #                                   Insulation Layer
+        # -----------------------------------------------------------------------------------
 
-        elif layer > 5:
+
+        # Just take the values in the layer
+        mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer2 }Material']]
+        agg_surface.loc[2,'dz'] = surface[f'{roofwall}{layer2}Thickness']
+        agg_surface.loc[2,'k'] = mat['Thermal Conductivity']
+        agg_surface.loc[2,'rho'] = mat['Density']
+        agg_surface.loc[2,'cp'] = mat['Specific Heat']
+
+        # ------------------------------------- Layer 3 -------------------------------------
+        #                                     Inner Layer
+        # -----------------------------------------------------------------------------------
+        
+        if len(layer3) > 0:
+
+            if len(layer3) == 1:
+                print('L3, only one 3 layer')
+                mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer3[0]}Material']]
+                agg_surface.loc[3,'dz'] = surface[f'{roofwall}{layer3[0]}Thickness']
+                agg_surface.loc[3,'k'] = mat['Thermal Conductivity']
+                agg_surface.loc[3,'rho'] = mat['Density']
+                agg_surface.loc[3,'cp'] = mat['Specific Heat']
+
+                # Fill 2 inner layers with nan
+                for layer in range(4,6):
+                    agg_surface.loc[layer,'dz'] = nan
+                    agg_surface.loc[layer,'k'] = nan
+                    agg_surface.loc[layer,'rho'] = nan
+                    agg_surface.loc[layer,'cp'] = nan
+
+            else:
+                print('L3, more than one 3 layer')
+
+                for layer in layer3:
+                    d_list = []
+                    k_list = []
+                    rho_list = []
+                    cp_list = []
+
+                    for layer in layer3:
+                        d_list.append(surface[f'{roofwall}{layer}Thickness'])
+                        mat = db_dict['Spartacus Material'].loc[surface[f'{roofwall}{layer}Material']]
+                        k_list.append(mat['Thermal Conductivity'])
+                        rho_list.append(mat['Density'])
+                        cp_list.append(mat['Specific Heat'])
+
+                        agg_surface.loc[3,'dz'] = sum(d_list)
+                        agg_surface.loc[3,'k'] = sum(d_list) / sum(d / k for d, k in zip(d_list, k_list))
+                        agg_surface.loc[3,'rho'] = sum(d * k for d, k in zip(d_list, rho_list)) / sum(d_list)
+                        agg_surface.loc[3,'cp'] = sum(d * rho * cp for d, rho, cp in zip(d_list, rho_list, cp_list)) / (agg_surface.loc[3,'rho'] * agg_surface.loc[3,'dz'])
+
+                    # Fill 2 inner layers with nan
+                    for layer in range(4,6):
+                        agg_surface.loc[layer,'dz'] = nan
+                        agg_surface.loc[layer,'k'] = nan
+                        agg_surface.loc[layer,'rho'] = nan
+                        agg_surface.loc[layer,'cp'] = nan
+
+        else:
             for layer in range(3,6):
                 agg_surface.loc[layer,'dz'] = nan
                 agg_surface.loc[layer,'k'] = nan
                 agg_surface.loc[layer,'rho'] = nan
                 agg_surface.loc[layer,'cp'] = nan
-                # agg_surface.loc[layer,'cp'] = agg_surface.loc[layer,'cp'] * agg_surface.loc[layer,'rho']
 
         # -----------------------------------------------------------------------------------
 
-
     if no_rho == True:
-        # AS OF 20250224 Remove rho and recalculate cp as rhocp
         agg_surface = agg_surface.drop(columns = ['rho'])
         agg_surface = agg_surface.round(3).loc[:,['dz','k','cp']].to_dict()
 

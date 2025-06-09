@@ -213,3 +213,65 @@ FileNotFoundError: [Errno 2] No such file or directory: 'C:\\GitHub\\SUEWS_DB_Ty
 2023-11-03 16:27:29,512 - SuPy - INFO - Execution time: 641.9 s
 2023-11-03 16:27:29,513 - SuPy - INFO - ====================
 
+2025-01-22 13:26:01,836 - SuPy - INFO - All cache cleared.
+2025-01-22 13:26:01,863 - SuPy - ERROR - C:\GitHub\SUEWS_DB_Typology_test\sensitivity\TN\test_stebbs_building_typologies.nml does not exists!
+Traceback (most recent call last):
+  File "c:\Users\xbacos\miniconda3\envs\supy_env\Lib\site-packages\supy\_load.py", line 276, in load_SUEWS_nml
+    df_nml = pd.DataFrame(parser.read(p_nml))
+                          ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\xbacos\AppData\Roaming\Python\Python312\site-packages\f90nml\parser.py", line 279, in read
+    nml_file = open(nml_fname, 'r') if nml_is_path else nml_fname
+               ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\GitHub\\SUEWS_DB_Typology_test\\sensitivity\\TN\\test_stebbs_building_typologies.nml'
+2025-01-22 13:27:02,892 - SuPy - INFO - All cache cleared.
+2025-01-22 13:27:42,639 - SuPy - INFO - All cache cleared.
+2025-01-22 13:27:52,406 - SuPy - INFO - All cache cleared.
+2025-01-22 13:28:13,416 - SuPy - INFO - ====================
+2025-01-22 13:28:13,417 - SuPy - INFO - Simulation period:
+2025-01-22 13:28:13,418 - SuPy - INFO -   Start: 2018-06-28 00:05:00
+2025-01-22 13:28:13,419 - SuPy - INFO -   End: 2018-06-29 23:55:00
+2025-01-22 13:28:13,421 - SuPy - INFO - 
+2025-01-22 13:28:13,422 - SuPy - INFO - No. of grids: 1
+2025-01-22 13:28:13,423 - SuPy - INFO - SuPy is running in serial mode
+2025-01-22 13:29:42,663 - SuPy - INFO - Execution time: 89.2 s
+2025-01-22 13:29:42,663 - SuPy - INFO - ====================
+
+2025-02-04 11:01:52,954 - SuPy - INFO - All cache cleared.
+2025-02-24 14:39:16,803 - SuPy - WARNING - Input is not a yaml file, loading from other sources. These methods will be deprecated in later versions.
+2025-02-24 14:39:16,896 - SuPy - INFO - All cache cleared.
+2025-02-24 15:33:20,580 - SuPy - WARNING - Input is not a yaml file, loading from other sources. These methods will be deprecated in later versions.
+2025-02-24 15:33:20,845 - SuPy - INFO - All cache cleared.
+2025-02-24 15:33:40,692 - SuPy - INFO - All cache cleared.
+2025-02-24 15:34:03,535 - SuPy - INFO - All cache cleared.
+2025-02-24 15:34:15,164 - SuPy - INFO - All cache cleared.
+2025-02-24 15:34:41,849 - SuPy - INFO - All cache cleared.
+2025-02-24 15:34:46,263 - SuPy - INFO - ====================
+2025-02-24 15:34:46,264 - SuPy - INFO - Simulation period:
+2025-02-24 15:34:46,265 - SuPy - INFO -   Start: 2018-06-28 00:05:00
+2025-02-24 15:34:46,266 - SuPy - INFO -   End: 2018-06-29 23:55:00
+2025-02-24 15:34:46,266 - SuPy - INFO - 
+2025-02-24 15:34:46,267 - SuPy - INFO - No. of grids: 1
+2025-02-24 15:34:46,267 - SuPy - INFO - SuPy is running in serial mode
+2025-02-24 15:36:11,452 - SuPy - INFO - Execution time: 85.2 s
+2025-02-24 15:36:11,452 - SuPy - INFO - ====================
+
+2025-02-24 15:37:41,547 - SuPy - INFO - ====================
+2025-02-24 15:37:41,547 - SuPy - INFO - Simulation period:
+2025-02-24 15:37:41,547 - SuPy - INFO -   Start: 2018-06-28 00:05:00
+2025-02-24 15:37:41,547 - SuPy - INFO -   End: 2018-06-29 23:55:00
+2025-02-24 15:37:41,547 - SuPy - INFO - 
+2025-02-24 15:37:41,547 - SuPy - INFO - No. of grids: 1
+2025-02-24 15:37:41,547 - SuPy - INFO - SuPy is running in serial mode
+2025-02-24 15:39:06,082 - SuPy - INFO - Execution time: 84.5 s
+2025-02-24 15:39:06,082 - SuPy - INFO - ====================
+
+2025-02-24 15:44:57,279 - SuPy - INFO - ====================
+2025-02-24 15:44:57,279 - SuPy - INFO - Simulation period:
+2025-02-24 15:44:57,279 - SuPy - INFO -   Start: 2018-06-28 00:05:00
+2025-02-24 15:44:57,279 - SuPy - INFO -   End: 2018-06-29 23:55:00
+2025-02-24 15:44:57,279 - SuPy - INFO - 
+2025-02-24 15:44:57,279 - SuPy - INFO - No. of grids: 1
+2025-02-24 15:44:57,279 - SuPy - INFO - SuPy is running in serial mode
+2025-02-24 15:46:22,061 - SuPy - INFO - Execution time: 84.8 s
+2025-02-24 15:46:22,061 - SuPy - INFO - ====================
+

@@ -1,0 +1,49 @@
+1 Typology ALL
+
+Grid = {
+8: 'Open midrise',
+9: 'Open lowrise',
+11: 'Dense highrise',
+14: 'Open industry',
+}
+
+HOW
+QE, QH
+
+2) Same morphology (8, 11) different typology
+
+Morphology for 8 (Open midrise) & 11 (Dense highrise) 
+
+typolgies: 
+	{'TN' : {
+		'name: 'Traditional neighbourhood',
+		8 : 'TN_8,
+		11: 'TN_11',
+		}
+	},
+	{'NF' : {
+		'name: 'Nordic functionalism',
+		8 : 'NF_11,
+		11: 'NF_11',
+		}
+	},
+	{'MP' : {
+		'name: 'The million programme',
+		8 : 'MP_11,
+		11: 'MP_11',
+		}
+	},
+	{'MC' : {
+		'name: 'Mixed city',
+		8 : 'MC_11,
+		11: 'MC_11',
+		}
+	}
+}
+
+HOW
+QE, QH
+
+3)
+
+Same as 2 but add vegetation.
