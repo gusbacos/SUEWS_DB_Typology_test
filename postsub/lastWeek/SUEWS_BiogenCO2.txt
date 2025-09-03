@@ -1,0 +1,5 @@
+1	2	3	4	5	6	7	8	9		
+Code	alpha	beta	theta	alpha_enh	beta_enh	resp_a	resp_b	min_respi		
+30240007.0	0.044	43.35	-999.0	-999.0	-999.0	1.08	0.064	0.6	!	Plant canopies, UK, SE England
+-9.0										
+-9.0										
